@@ -2,7 +2,6 @@ backups/*
 !backups/.gitkeep
 logs/*
 !logs/.gitkeep
-agent/amani/memory/*
 !agent/amani/memory/.gitkeep
 *.apk
 *.ab

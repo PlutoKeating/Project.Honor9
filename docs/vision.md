@@ -26,9 +26,9 @@
 | 1 · 备份 | 导出应用清单和用户数据，建立基线 | `scripts/backup/`，基线清单 |
 | 2 · 精简 | 分批禁用或卸载无用的应用和服务，观察系统稳定性 | `configs/packages/`，`scripts/debloat/` |
 | 3 · 调优 | 常驻保活、省电策略、网络、温控、充电上限 | `configs/services/`，实验记录 |
-| 4 · 环境 | 搭建 Termux 或其他运行时，打通主机和设备的通信 | `scripts/deploy/` |
-| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | `agent/amani/` |
+| 4 · 环境 | Termux + runit 运行环境，打通主机和设备的通信 | `scripts/deploy/` ✅ |
+| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Amani/`、`adapters/honor9/` |
 
 ## 关于 Amani（神谷薰）
 
-本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。人格设定、能力边界、记忆机制等见 `agent/amani/`。
+本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。她的运行基座（心脏、记忆、能力边界等）在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani)；人格与记忆存放在私有的灵魂仓库中，与运行 Hermes 的其他设备共享。

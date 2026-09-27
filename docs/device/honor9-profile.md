@@ -116,6 +116,20 @@
 
 > 239 个系统包是精简工作的主要对象，清单会放到 `configs/packages/`。
 
+## Amani 运行环境（2026-09-28 起）
+
+| 项目 | 值 |
+|---|---|
+| Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
+| Node.js | v24.18.0（Termux `nodejs-lts`） |
+| 控制台 App | `xyz.amani.console`（已授予 Termux RUN_COMMAND 权限） |
+| 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
+| 屏幕超时 | 10 分钟（原 30 秒） |
+| 锁屏 | 密码 + 人脸解锁（FBE：重启后需首次解锁，Amani 才会自启） |
+| 充电控制 | 充电节点不可写，无法设置充电上限 |
+
+部署与架构见 `docs/ARCHITECTURE.md`。
+
 ## 电源策略（2026-09-27 起）
 
 Doze（深度和轻度）、App Standby、自适应电池都已关闭，所有包都在 deviceidle 白名单中。重启后 Doze 会自动恢复，需要运行 `scripts/debloat/post-boot.sh`。

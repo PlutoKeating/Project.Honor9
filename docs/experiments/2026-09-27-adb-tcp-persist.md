@@ -15,7 +15,7 @@
 - 设备状态未改变，无需重启。
 
 ## 结论
-在不 root、不改系统分区的前提下，手机重启后 adbd 只在 USB 上服务，shell 身份必须由电脑通过 USB 获得。因此 Amani 基座不依赖 shell 身份，改为运行在 Termux 中，见 `docs/architecture/amani-runtime.md`。
+在不 root、不改系统分区的前提下，手机重启后 adbd 只在 USB 上服务，shell 身份必须由电脑通过 USB 获得。因此 Amani 基座不依赖 shell 身份，改为运行在 Termux 中，见 `docs/ARCHITECTURE.md`。
 
 ## 回滚
 无需回滚（属性未写入）。

@@ -17,24 +17,25 @@
 
 更多硬件与系统信息见 [设备档案](docs/device/honor9-profile.md)：麒麟 960、6 GB RAM、128 GB 存储、Mali-G71、Bootloader 已锁。
 
-项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)。
+项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)，架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+
+Amani 的运行基座本身在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani)（子模块 `Project.Amani/`）；本仓库负责把它适配到这台手机上，两者在代码与配置上完全解耦。
 
 ## 目录结构
 
 ```
 .
-├── agent/
-│   └── amani/              # 智能体 Amani（神谷薰）
-│       ├── config/         #   运行配置
-│       ├── prompts/        #   人格设定与提示词
-│       ├── skills/         #   技能 / 工具定义
-│       └── memory/         #   长期记忆（数据文件不入库）
+├── Project.Amani/          # 子模块：Amani 运行基座与控制台（独立仓库，设备无关）
+├── adapters/
+│   └── honor9/             # 荣耀9 身体适配器（Termux:API 感官与动作）
 ├── configs/
 │   ├── packages/           # 应用包清单（保留 / 禁用 / 卸载）
 │   └── services/           # 系统服务裁剪清单
-├── AGENTS.md               # 项目规则（新会话必读）
+├── AGENTS.md               # Agent 开发规范与项目规则（新会话必读）
 ├── CLAUDE.md -> AGENTS.md  # 软链接
 ├── docs/
+│   ├── ARCHITECTURE.md     # 架构：Amani 在荣耀9 上的适配与部署
+│   ├── API.md              # 适配器与部署脚本接口
 │   ├── vision.md           # 项目愿景与阶段规划
 │   ├── device/             # 硬件、系统、分区等设备资料
 │   ├── experiments/        # 实验记录（一个实验一个文件）
@@ -44,10 +45,10 @@
 │   ├── adb/                # ADB 连接与常用操作
 │   ├── debloat/            # 精简：禁用或卸载应用、关闭服务
 │   ├── backup/             # 备份与还原
-│   └── deploy/             # 智能体部署到设备
+│   └── deploy/             # 系统准备、Termux 安装与引导、Amani 发布与回滚
 ├── tools/                  # 独立的辅助工具
 ├── private/                # 本机敏感信息：序列号、ID、MAC、IP（不入库）
-├── backups/                # 本地备份（不入库）
+├── backups/                # 本地备份与 APK（不入库）
 └── logs/                   # 运行日志（不入库）
 ```
 
@@ -61,7 +62,20 @@ echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", MODE="0666", GROUP="plugdev"' \
 sudo udevadm control --reload-rules && sudo udevadm trigger
 # 3. 验证
 adb devices -l
+# 4. 克隆时带上子模块
+git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 ```
+
+部署 Amani（手机需亮屏解锁，全程约 10 分钟）：
+
+```bash
+scripts/deploy/termux-install.sh        # 安装 Termux 三件套
+scripts/deploy/prepare-system.sh apply  # 卸载 PowerGenie、放行后台
+scripts/deploy/termux-bootstrap.sh      # 首次引导（sshd、nodejs、runit、开机脚本）
+scripts/deploy/amani-release.sh         # 构建并发布 Amani（失败自动回滚）
+```
+
+之后的配置（模型、飞书、灵魂同步）都在手机上的控制台 App 里完成，见 [Project.Amani 快速开始](Project.Amani/docs/QUICK_START.md)。
 
 ## 路线图
 
@@ -69,8 +83,10 @@ adb devices -l
 - [ ] 全量备份（应用列表、用户数据）
 - [ ] 梳理预装应用与系统服务，制定裁剪清单
 - [ ] 分批精简，并验证系统稳定性
-- [ ] 搭建智能体运行环境（Termux / 常驻服务 / 网络）
-- [ ] 部署「Amani（神谷薰）」并持续迭代
+- [x] 搭建智能体运行环境（Termux + runit，见 [架构](docs/ARCHITECTURE.md)）
+- [x] 部署 Amani 运行基座与控制台 App（[Project.Amani](https://github.com/PlutoKeating/Project.Amani)）
+- [ ] 配置模型、接入飞书与灵魂仓库，让她开始自主生活
+- [ ] 持续迭代「Amani（神谷薰）」：操作屏幕与应用（hands）等
 
 ## 约定
 

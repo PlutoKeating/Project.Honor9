@@ -25,7 +25,7 @@
 
 如果任务涉及某个二级核心模块，Agent 必须阅读该模块目录文档，以 `**/docs/README.md` 和 `**/docs/ARCHITECTURE.md` 为主，例如：
 
-- 运行基座适配任务：阅读 `adapters/honor9/README.md`（若存在）与 `docs/architecture/` 下的方案文档
+- 运行基座适配任务：阅读 `adapters/honor9/README.md`、`docs/ARCHITECTURE.md` 与 `docs/API.md`
 - 部署与设备操作任务：阅读 `scripts/deploy/`、`scripts/debloat/` 中相关脚本与 `docs/experiments/` 中相关实验记录
 - 涉及 Amani 本体（子模块 `Project.Amani/`）的任务：同时遵守该子模块自己的 `AGENTS.md`
 
