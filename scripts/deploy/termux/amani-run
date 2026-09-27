@@ -1,0 +1,5 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# runit 服务：Amani 本体。退出即被 runit 重新拉起；熔断逻辑在 amani-core 内。
+exec 2>&1
+cd "$HOME/amani/current" || exit 1
+exec node --enable-source-maps dist/main.js
