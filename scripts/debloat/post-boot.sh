@@ -10,3 +10,4 @@ cat configs/packages/debloat-0*.txt | grep -vE '^\s*(#|$)' | while read -r p; do
   echo "$now" | grep -qx "$p" && echo "$p: $(adb shell -n pm uninstall -k --user 0 "$p" </dev/null 2>&1 | tail -1)"
 done
 scripts/deploy/power-no-optimize.sh
+scripts/debloat/block-ota.sh

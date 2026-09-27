@@ -16,6 +16,7 @@ adb shell settings put global stay_on_while_plugged_in 0
 adb shell dumpsys deviceidle unforce
 adb shell dumpsys deviceidle disable
 for p in $(adb shell pm list packages -e | sed 's/package://' | tr -d '\r'); do
+  [ "$p" = com.huawei.android.hwouc ] && continue  # 系统更新，见 block-ota.sh
   adb shell dumpsys deviceidle whitelist +"$p" >/dev/null
 done
 adb shell dumpsys deviceidle enabled

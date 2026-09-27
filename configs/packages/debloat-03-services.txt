@@ -37,3 +37,4 @@ com.google.android.onetimeinitializer
 com.google.android.printservice.recommendation
 com.huawei.printservice
 com.android.printspooler
+com.google.android.configupdater
