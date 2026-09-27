@@ -1,0 +1,15 @@
+backups/*
+!backups/.gitkeep
+logs/*
+!logs/.gitkeep
+agent/amani/memory/*
+!agent/amani/memory/.gitkeep
+*.apk
+*.ab
+*.img
+.env
+# 本机敏感信息（序列号、设备 ID、MAC、IP 等）
+private/*
+!private/README.md
+*.private.*
+.env.*
