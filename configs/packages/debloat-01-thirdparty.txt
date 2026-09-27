@@ -1,0 +1,13 @@
+# 批次 01：预装第三方应用（用 pm uninstall -k --user 0，可用 cmd package install-existing 恢复）
+com.honor.club
+com.baidu.searchbox
+com.hihonor.vmall
+com.tencent.mtt
+com.ss.android.article.news
+com.baidu.BaiduMap
+com.Qunar
+com.tencent.news
+com.jingdong.app.mall
+com.sina.weibo
+com.taobao.taobao
+cn.wps.moffice_eng
