@@ -31,4 +31,4 @@
 
 ## 关于 Amani（神谷薰）
 
-本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。她的运行基座（心脏、记忆、能力边界等）在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani)；人格与记忆存放在私有的灵魂仓库中，与运行 Hermes 的其他设备共享。
+本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。她运行在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani) 提供的通用 Agentic 生命运行基座上（基座与具体 agent 解耦，她的名字等身份数据存放在她自己的灵魂仓库）。人格与记忆存放在私有的灵魂仓库中，由基座全自动同步；装有 Hermes Agent 或 OpenClaw 的其他设备可以通过可插拔的 soul-bridge 成为她的另一具身体。
