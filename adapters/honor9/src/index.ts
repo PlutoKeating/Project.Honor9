@@ -22,11 +22,6 @@ const stamp = () => new Date().toISOString().replace(/[:.]/g, "-");
 
 const tools: AdapterTool[] = [
   {
-    name: "speak", permission: "device", description: "用手机扬声器把一段话说出来（中文 TTS）。",
-    parameters: obj({ text: { type: "string" } }, ["text"]),
-    handler: async (a) => ((await run("termux-tts-speak", ["-l", "zh", a.text], 120_000)).code === 0 ? "说完了" : "TTS 失败"),
-  },
-  {
     name: "take_photo", permission: "camera", description: "用手机相机拍一张照片（camera 0 后置，1 前置），返回文件路径。",
     parameters: obj({ camera: { type: "number", enum: [0, 1] } }),
     handler: async (a) => {
@@ -105,7 +100,6 @@ const adapter: BodyAdapter = {
     await run("termux-notification", ["--id", "windler-say", "--title", title, "--content", text, "--priority", "high",
       "--button1", "打开控制台", "--button1-action", `am start -n ${CONSOLE_ACTIVITY}`]);
   },
-  async speak(text) { await run("termux-tts-speak", ["-l", "zh", text], 120_000); },
   // 播放音频（如 Azure 语音合成的结果）：Termux:API 的媒体播放器，后台播放，立即返回
   async playAudio(file) {
     const r = await run("termux-media-player", ["play", file], 30_000);

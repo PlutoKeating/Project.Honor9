@@ -15,13 +15,12 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 | `motion` | 加速度计（BMI160）合加速度与重力之差 |
 | `extra.充电方式 / 电池健康` | `termux-battery-status` |
 
-**表达**：`notify()` → `termux-notification`（带「打开控制台」按钮）；`speak()` → `termux-tts-speak`；`playAudio(file)` → `termux-media-player play`（播放 Azure 语音合成的音频，后台播放、立即返回）。
+**表达**：`notify()` → `termux-notification`（带「打开控制台」按钮）；`playAudio(file)` → `termux-media-player play`（播放 Azure 语音合成的音频，后台播放、立即返回）。说话统一由运行基座的 `voice_speak` 完成：这台手机没有安装任何系统 TTS 引擎，`termux-tts-speak` 不出声，因此不提供 `speak`。
 
 **工具**
 
 | 工具 | 能力类别 | 实现 |
 |---|---|---|
-| `speak` | device | `termux-tts-speak -l zh` |
 | `take_photo` | camera | `termux-camera-photo`，保存到 `~/windler/data/media/` |
 | `record_audio` | microphone | `termux-microphone-record`（≤120 秒） |
 | `location` | location | `termux-location -p network`（坐标保留 3 位小数） |
