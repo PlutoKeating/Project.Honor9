@@ -15,7 +15,7 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 | `motion` | 加速度计（BMI160）合加速度与重力之差 |
 | `extra.充电方式 / 电池健康` | `termux-battery-status` |
 
-**表达**：`notify()` → `termux-notification`（带「打开控制台」按钮）；`speak()` → `termux-tts-speak`。
+**表达**：`notify()` → `termux-notification`（带「打开控制台」按钮）；`speak()` → `termux-tts-speak`；`playAudio(file)` → `termux-media-player play`（播放 Azure 语音合成的音频，后台播放、立即返回）。
 
 **工具**
 

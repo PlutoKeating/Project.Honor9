@@ -106,6 +106,11 @@ const adapter: BodyAdapter = {
       "--button1", "打开控制台", "--button1-action", `am start -n ${CONSOLE_ACTIVITY}`]);
   },
   async speak(text) { await run("termux-tts-speak", ["-l", "zh", text], 120_000); },
+  // 播放音频（如 Azure 语音合成的结果）：Termux:API 的媒体播放器，后台播放，立即返回
+  async playAudio(file) {
+    const r = await run("termux-media-player", ["play", file], 30_000);
+    if (r.code !== 0 || /error|fail/i.test(r.out)) throw new Error(`播放失败：${r.out.trim().slice(0, 200)}`);
+  },
   tools,
   // hands：看屏幕与操作其他应用——预留，尚未实现（需要无障碍服务或 shell 身份）
 };
