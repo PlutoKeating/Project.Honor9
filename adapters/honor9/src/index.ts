@@ -1,13 +1,13 @@
-// Amani 身体适配器：荣耀9（Android 9 / EMUI 9.1，Termux + Termux:API，无 root）。
-// 只依赖 Project.Amani 的适配器类型定义（构建时擦除），与核心实现完全解耦。
+// Windler 身体适配器：荣耀9（Android 9 / EMUI 9.1，Termux + Termux:API，无 root）。
+// 只依赖 Project.Windler 的适配器类型定义（构建时擦除），与核心实现完全解耦。
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { BodyAdapter, AdapterTool, RawSample } from "../../../Project.Amani/runtime/src/body/adapter.ts";
+import type { BodyAdapter, AdapterTool, RawSample } from "../../../Project.Windler/runtime/src/body/adapter.ts";
 import { run, json } from "./termux.ts";
 
-const MEDIA = path.join(process.env.AMANI_HOME ?? path.join(os.homedir(), "amani"), "data", "media");
-const CONSOLE_ACTIVITY = process.env.AMANI_CONSOLE_ACTIVITY ?? "xyz.amani.console/.MainActivity";
+const MEDIA = path.join(process.env.WINDLER_HOME ?? path.join(os.homedir(), "windler"), "data", "media");
+const CONSOLE_ACTIVITY = process.env.WINDLER_CONSOLE_ACTIVITY ?? "xyz.windler.console/.MainActivity";
 let sensors: { light?: string; accel?: string } = {};
 
 async function readSensor(name?: string): Promise<number[] | undefined> {
@@ -102,7 +102,7 @@ const adapter: BodyAdapter = {
     };
   },
   async notify(title, text) {
-    await run("termux-notification", ["--id", "amani-say", "--title", title, "--content", text, "--priority", "high",
+    await run("termux-notification", ["--id", "windler-say", "--title", title, "--content", text, "--priority", "high",
       "--button1", "打开控制台", "--button1-action", `am start -n ${CONSOLE_ACTIVITY}`]);
   },
   async speak(text) { await run("termux-tts-speak", ["-l", "zh", text], 120_000); },

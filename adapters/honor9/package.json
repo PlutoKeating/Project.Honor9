@@ -1,10 +1,10 @@
 {
-  "name": "amani-body-honor9",
+  "name": "windler-body-honor9",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "license": "AGPL-3.0-only",
-  "description": "Amani 身体适配器：荣耀9（Android 9 + Termux + Termux:API）",
+  "description": "Windler 身体适配器：荣耀9（Android 9 + Termux + Termux:API）",
   "scripts": {
     "build": "tsc --noEmit && esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/honor9.mjs"
   },

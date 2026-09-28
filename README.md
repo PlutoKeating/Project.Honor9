@@ -19,13 +19,13 @@
 
 项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)，架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
-Amani 的运行基座本身在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani)（子模块 `Project.Amani/`）；本仓库负责把它适配到这台手机上，两者在代码与配置上完全解耦。
+Amani 的运行基座本身在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler)（子模块 `Project.Windler/`）；本仓库负责把它适配到这台手机上，两者在代码与配置上完全解耦。
 
 ## 目录结构
 
 ```
 .
-├── Project.Amani/          # 子模块：Amani 运行基座与控制台（独立仓库，设备无关）
+├── Project.Windler/          # 子模块：Windler 运行基座与控制台（独立仓库，设备无关）
 ├── adapters/
 │   └── honor9/             # 荣耀9 身体适配器（Termux:API 感官与动作）
 ├── configs/
@@ -34,7 +34,7 @@ Amani 的运行基座本身在独立仓库 [Project.Amani](https://github.com/Pl
 ├── AGENTS.md               # Agent 开发规范与项目规则（新会话必读）
 ├── CLAUDE.md -> AGENTS.md  # 软链接
 ├── docs/
-│   ├── ARCHITECTURE.md     # 架构：Amani 在荣耀9 上的适配与部署
+│   ├── ARCHITECTURE.md     # 架构：Windler 运行基座在荣耀9 上的适配与部署
 │   ├── API.md              # 适配器与部署脚本接口
 │   ├── vision.md           # 项目愿景与阶段规划
 │   ├── device/             # 硬件、系统、分区等设备资料
@@ -45,7 +45,7 @@ Amani 的运行基座本身在独立仓库 [Project.Amani](https://github.com/Pl
 │   ├── adb/                # ADB 连接与常用操作
 │   ├── debloat/            # 精简：禁用或卸载应用、关闭服务
 │   ├── backup/             # 备份与还原
-│   └── deploy/             # 系统准备、Termux 安装与引导、Amani 发布与回滚
+│   └── deploy/             # 系统准备、Termux 安装与引导、Windler 发布与回滚
 ├── tools/                  # 独立的辅助工具
 ├── private/                # 本机敏感信息：序列号、ID、MAC、IP（不入库）
 ├── backups/                # 本地备份与 APK（不入库）
@@ -66,16 +66,16 @@ adb devices -l
 git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 ```
 
-部署 Amani（手机需亮屏解锁，全程约 10 分钟）：
+部署 Windler 运行基座（手机需亮屏解锁，全程约 10 分钟）：
 
 ```bash
 scripts/deploy/termux-install.sh        # 安装 Termux 三件套
 scripts/deploy/prepare-system.sh apply  # 卸载 PowerGenie、放行后台
 scripts/deploy/termux-bootstrap.sh      # 首次引导（sshd、nodejs、runit、开机脚本）
-scripts/deploy/amani-release.sh         # 构建并发布 Amani（失败自动回滚）
+scripts/deploy/windler-release.sh         # 构建并发布 Windler 运行基座（失败自动回滚）
 ```
 
-之后的配置（模型、飞书、灵魂同步）都在手机上的控制台 App 里完成，见 [Project.Amani 快速开始](Project.Amani/docs/QUICK_START.md)。
+之后的配置（模型、飞书、灵魂同步）都在手机上的控制台 App 里完成，见 [Project.Windler 快速开始](Project.Windler/docs/QUICK_START.md)。
 
 ## 路线图
 
@@ -84,7 +84,7 @@ scripts/deploy/amani-release.sh         # 构建并发布 Amani（失败自动�
 - [ ] 梳理预装应用与系统服务，制定裁剪清单
 - [ ] 分批精简，并验证系统稳定性
 - [x] 搭建智能体运行环境（Termux + runit，见 [架构](docs/ARCHITECTURE.md)）
-- [x] 部署 Amani 运行基座与控制台 App（[Project.Amani](https://github.com/PlutoKeating/Project.Amani)）
+- [x] 部署 Windler 运行基座与控制台 App（[Project.Windler](https://github.com/PlutoKeating/Project.Windler)）
 - [ ] 配置模型、接入飞书与灵魂仓库，让她开始自主生活
 - [ ] 持续迭代「Amani（神谷薰）」：操作屏幕与应用（hands）等
 

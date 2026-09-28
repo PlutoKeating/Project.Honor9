@@ -27,8 +27,8 @@
 | 2 · 精简 | 分批禁用或卸载无用的应用和服务，观察系统稳定性 | `configs/packages/`，`scripts/debloat/` |
 | 3 · 调优 | 常驻保活、省电策略、网络、温控、充电上限 | `configs/services/`，实验记录 |
 | 4 · 环境 | Termux + runit 运行环境，打通主机和设备的通信 | `scripts/deploy/` ✅ |
-| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Amani/`、`adapters/honor9/` |
+| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Windler/`、`adapters/honor9/` |
 
 ## 关于 Amani（神谷薰）
 
-本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。她运行在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani) 提供的通用 Agentic 生命运行基座上（基座与具体 agent 解耦，她的名字等身份数据存放在她自己的灵魂仓库）。人格与记忆存放在私有的灵魂仓库中，由基座全自动同步；装有 Hermes Agent 或 OpenClaw 的其他设备可以通过可插拔的 soul-bridge 成为她的另一具身体。
+本仓库培育的智能体名为 **Amani**，中文名 **神谷薰**。文档、代码和目录中统一用 `amani` 作为标识符。她运行在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler) 提供的通用 Agentic 生命运行基座上（基座与具体 agent 解耦，她的名字等身份数据存放在她自己的灵魂仓库）。人格与记忆存放在私有的灵魂仓库中，由基座全自动同步；装有 Hermes Agent 或 OpenClaw 的其他设备可以通过可插拔的 soul-bridge 成为她的另一具身体。

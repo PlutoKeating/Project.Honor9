@@ -1,0 +1,6 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# runit 服务：Windler 运行基座（她的身体）。退出即被 runit 重新拉起；熔断逻辑在 Windler 运行基座内。
+exec 2>&1
+cd "$HOME/windler/current" || exit 1
+export WINDLER_ADAPTER="$HOME/windler/current/honor9.mjs"
+exec node --enable-source-maps main.cjs

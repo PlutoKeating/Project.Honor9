@@ -2,7 +2,7 @@
 # 在 Termux 内执行的一次性引导（由主机 termux-bootstrap.sh 推送并触发）。
 # 结果：sshd（仅 127.0.0.1:8022，公钥登录）、nodejs、runit 服务框架、开机脚本、允许外部应用 RUN_COMMAND。
 set -e
-SRC=/sdcard/Download/amani-bootstrap
+SRC=/sdcard/Download/windler-bootstrap
 yes | pkg update -y -o Dpkg::Options::=--force-confnew
 pkg install -y -o Dpkg::Options::=--force-confnew openssh nodejs-lts termux-services termux-api git rsync
 
@@ -16,16 +16,16 @@ touch ~/.termux/termux.properties
 grep -q '^allow-external-apps' ~/.termux/termux.properties || echo 'allow-external-apps=true' >> ~/.termux/termux.properties
 
 mkdir -p ~/.termux/boot
-cp "$SRC/boot-amani" ~/.termux/boot/amani && chmod 700 ~/.termux/boot/amani
+cp "$SRC/boot-windler" ~/.termux/boot/windler && chmod 700 ~/.termux/boot/windler
 
-# runit 服务：sshd 与 amani
+# runit 服务：sshd 与 windler
 . $PREFIX/etc/profile.d/start-services.sh || true
 sleep 2
 sv-enable sshd || true
-mkdir -p $PREFIX/var/service/amani/log
-cp "$SRC/amani-run" $PREFIX/var/service/amani/run && chmod 700 $PREFIX/var/service/amani/run
-cp "$SRC/amani-log-run" $PREFIX/var/service/amani/log/run && chmod 700 $PREFIX/var/service/amani/log/run
-mkdir -p $PREFIX/var/log/sv/amani ~/amani
-touch $PREFIX/var/service/amani/down   # 未部署前不启动
+mkdir -p $PREFIX/var/service/windler/log
+cp "$SRC/windler-run" $PREFIX/var/service/windler/run && chmod 700 $PREFIX/var/service/windler/run
+cp "$SRC/windler-log-run" $PREFIX/var/service/windler/log/run && chmod 700 $PREFIX/var/service/windler/log/run
+mkdir -p $PREFIX/var/log/sv/windler ~/windler
+touch $PREFIX/var/service/windler/down   # 未部署前不启动
 termux-wake-lock
-echo AMANI_BOOTSTRAP_OK > "$SRC/done"
+echo WINDLER_BOOTSTRAP_OK > "$SRC/done"

@@ -27,7 +27,7 @@
 
 - 运行基座适配任务：阅读 `adapters/honor9/README.md`、`docs/ARCHITECTURE.md` 与 `docs/API.md`
 - 部署与设备操作任务：阅读 `scripts/deploy/`、`scripts/debloat/` 中相关脚本与 `docs/experiments/` 中相关实验记录
-- 涉及 Amani 本体（子模块 `Project.Amani/`）的任务：同时遵守该子模块自己的 `AGENTS.md`
+- 涉及 Windler 运行基座（子模块 `Project.Windler/`）的任务：同时遵守该子模块自己的 `AGENTS.md`
 
 如任务涉及模块启动、环境变量、脚本或部署，还必须阅读该模块的：
 
@@ -138,7 +138,7 @@ Agent 的工作边界：
 
 - 可以在当前本地分支上修改、暂存、提交。
 - 向 `main` 推送遵循第 3.3 节。
-- 子模块 `Project.Amani/` 是独立仓库，在其内部的提交与推送遵循它自己的 `AGENTS.md`；本仓库只提交子模块指针的更新。
+- 子模块 `Project.Windler/` 是独立仓库，在其内部的提交与推送遵循它自己的 `AGENTS.md`；本仓库只提交子模块指针的更新。
 
 
 ---
@@ -176,7 +176,7 @@ Agent 的工作边界：
 
 - 目标设备：一台通过 USB ADB 连接到本机的**荣耀9 (STF-AL10)** 实验机。设备详情见 `docs/device/honor9-profile.md`。
 - 目的：尽可能裁剪和精简设备上用不到的功能、软件和服务，把它改造成 AI-Native 时代的**智能体工坊**，并把 **「Amani（神谷薰）」** 智能体的运行基座适配到这台手机上。
-- 本仓库与 Amani 本体解耦：Amani 运行基座的设计与实现在独立仓库 [Project.Amani](https://github.com/PlutoKeating/Project.Amani)（以子模块 `Project.Amani/` 引入）；本仓库只放荣耀9 的适配（身体适配器 `adapters/honor9/`）、部署脚本与设备配置。**两者在代码与配置上完全解耦**：本仓库不修改子模块内的代码来适配设备，只通过适配器接口与配置文件对接。
+- 本仓库与 Amani 本体解耦：Windler 运行基座的设计与实现在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler)（以子模块 `Project.Windler/` 引入）；本仓库只放荣耀9 的适配（身体适配器 `adapters/honor9/`）、部署脚本与设备配置。**两者在代码与配置上完全解耦**：本仓库不修改子模块内的代码来适配设备，只通过适配器接口与配置文件对接。
 - 智能体命名：英文名 **Amani**，中文名 **神谷薰**，代码与目录标识符统一用 `amani`。
 - 本仓库记录工作情况和实验经验，也存放维护过程中写的脚本和工具。
 - 仓库托管在 https://github.com/PlutoKeating/Project.Honor9（**公开仓库**），许可证为 **AGPLv3**。

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Amani 运行基座的系统准备：去掉 EMUI 查杀、给 Termux 系列与控制台放行后台。
+# Windler 运行基座的系统准备：去掉 EMUI 查杀、给 Termux 系列与控制台放行后台。
 # 用法：prepare-system.sh apply | rollback | status
-# 原理与说明见 docs/architecture/amani-runtime.md 第 2 节。
+# 原理与说明见 docs/ARCHITECTURE.md。
 set -u
-PKGS="com.termux com.termux.boot com.termux.api xyz.amani.console"
+PKGS="com.termux com.termux.boot com.termux.api xyz.windler.console"
 KILLERS="com.huawei.powergenie"
 sh_() { adb shell -n "$@" </dev/null; }
 installed() { sh_ pm list packages | tr -d '\r' | grep -qx "package:$1"; }

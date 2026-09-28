@@ -1,6 +1,6 @@
 # 接口：适配器与部署脚本
 
-Amani 的网关 API 与适配器接口定义见子模块 [`Project.Amani/docs/API.md`](../Project.Amani/docs/API.md)。本文只描述本仓库提供的实现。
+Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/docs/API.md`](../Project.Windler/docs/API.md)。本文只描述本仓库提供的实现。
 
 ## 1. 身体适配器 `adapters/honor9`
 
@@ -22,13 +22,13 @@ Amani 的网关 API 与适配器接口定义见子模块 [`Project.Amani/docs/AP
 | 工具 | 能力类别 | 实现 |
 |---|---|---|
 | `speak` | device | `termux-tts-speak -l zh` |
-| `take_photo` | camera | `termux-camera-photo`，保存到 `~/amani/data/media/` |
+| `take_photo` | camera | `termux-camera-photo`，保存到 `~/windler/data/media/` |
 | `record_audio` | microphone | `termux-microphone-record`（≤120 秒） |
 | `location` | location | `termux-location -p network`（坐标保留 3 位小数） |
 | `vibrate` / `torch` / `clipboard` | device | `termux-vibrate` / `termux-torch` / `termux-clipboard-*` |
 | `read_sensor` | device | `termux-sensor` |
 
-环境变量：`AMANI_HOME`（媒体保存位置）、`AMANI_CONSOLE_ACTIVITY`（通知按钮打开的界面，默认 `xyz.amani.console/.MainActivity`）。
+环境变量：`WINDLER_HOME`（媒体保存位置）、`WINDLER_CONSOLE_ACTIVITY`（通知按钮打开的界面，默认 `xyz.windler.console/.MainActivity`）。
 
 ## 2. 部署脚本 `scripts/deploy/`
 
@@ -36,11 +36,12 @@ Amani 的网关 API 与适配器接口定义见子模块 [`Project.Amani/docs/AP
 |---|---|---|
 | `prepare-system.sh` | `apply` / `rollback` / `status` | 卸载 PowerGenie；为 Termux 系列与控制台加省电白名单、允许后台、待机分组 active（先备份到 `backups/`） |
 | `termux-install.sh` | — | 校验 sha256 后安装 Termux、Termux:Boot、Termux:API（GitHub 版，签名一致，APK 在 `backups/apks/`） |
-| `termux-bootstrap.sh` | — | 首次引导：推送引导文件到 `/sdcard/Download/amani-bootstrap/`，在 Termux 界面模拟输入执行 `termux/bootstrap.sh`，完成后通过 ssh 验证 |
-| `amani-release.sh` | 无参数 / `rollback` | 测试、构建并发布运行基座与适配器，健康检查失败自动回滚 |
+| `termux-bootstrap.sh` | — | 首次引导：推送引导文件到 `/sdcard/Download/windler-bootstrap/`，在 Termux 界面模拟输入执行 `termux/bootstrap.sh`，完成后通过 ssh 验证 |
+| `windler-release.sh` | 无参数 / `rollback` | 测试、构建并发布运行基座与适配器，健康检查失败自动回滚 |
+| `migrate-to-windler.sh` | — | 一次性迁移（可重复执行）：旧 Amani 部署 → Windler。停旧服务，`~/amani` 改名为 `~/windler`（数据全部保留），修正版本链接，移除旧服务与开机脚本，换装控制台 `xyz.windler.console` 并放行；之后执行 `windler-release.sh` |
 | `lib.sh` | 被引用 | `dssh` / `dscp`：经 USB 端口转发连接 Termux 的 ssh |
 | `power-no-optimize.sh` | 无参数 / `restore` | 全局关闭省电优化（第一轮精简时引入） |
 
-设备端文件（`scripts/deploy/termux/`）：`bootstrap.sh`（安装 openssh、nodejs-lts、termux-services、termux-api、git、rsync，配置 sshd 与外部调用）、`boot-amani`（开机脚本）、`amani-run`（runit 服务）、`amani-log-run`（日志服务）。
+设备端文件（`scripts/deploy/termux/`）：`bootstrap.sh`（安装 openssh、nodejs-lts、termux-services、termux-api、git、rsync，配置 sshd 与外部调用）、`boot-windler`（开机脚本）、`windler-run`（runit 服务）、`windler-log-run`（日志服务）。
 
-ssh 密钥默认 `~/.ssh/amani_honor9`（可用 `AMANI_SSH_KEY` 覆盖），只存在于主机。
+ssh 密钥默认 `~/.ssh/windler_honor9`（可用 `WINDLER_SSH_KEY` 覆盖），只存在于主机。

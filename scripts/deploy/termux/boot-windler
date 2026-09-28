@@ -1,4 +1,4 @@
 #!/data/data/com.termux/files/usr/bin/sh
-# Termux:Boot 开机脚本：保持 CPU 唤醒，启动 runit（sshd、amani 由其守护）
+# Termux:Boot 开机脚本：保持 CPU 唤醒，启动 runit（sshd、windler 由其守护）
 termux-wake-lock
 . $PREFIX/etc/profile.d/start-services.sh
