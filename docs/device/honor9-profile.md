@@ -123,6 +123,7 @@
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 控制台 App | `xyz.amani.console`（已授予 Termux RUN_COMMAND 权限） |
+| 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
 | 屏幕超时 | 10 分钟（原 30 秒） |
 | 锁屏 | 密码 + 人脸解锁（FBE：重启后需首次解锁，Amani 才会自启） |
