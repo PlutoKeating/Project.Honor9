@@ -40,6 +40,6 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 | `lib.sh` | 被引用 | `dssh` / `dscp`：经 USB 端口转发连接 Termux 的 ssh |
 | `power-no-optimize.sh` | 无参数 / `restore` | 全局关闭省电优化（第一轮精简时引入） |
 
-设备端文件（`scripts/deploy/termux/`）：`bootstrap.sh`（安装 openssh、nodejs-lts、termux-services、termux-api、git、rsync，配置 sshd 与外部调用）、`boot-windler`（开机脚本）、`windler-run`（runit 服务）、`windler-log-run`（日志服务）。
+设备端文件（`scripts/deploy/termux/`）：`bootstrap.sh`（安装 openssh、nodejs-lts、termux-services、termux-api、git、rsync、ffmpeg、imagemagick（后两者供运行基座缩小大图片），配置 sshd 与外部调用）、`boot-windler`（开机脚本）、`windler-run`（runit 服务）、`windler-log-run`（日志服务）。
 
 ssh 密钥默认 `~/.ssh/windler_honor9`（可用 `WINDLER_SSH_KEY` 覆盖），只存在于主机。

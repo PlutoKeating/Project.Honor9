@@ -122,6 +122,7 @@
 |---|---|
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
+| 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（运行基座缩小大图片；2026-09-28 修复了 ffmpeg 因 libc++ 版本不匹配无法运行的问题） |
 | 控制台 App | 「Windler」`xyz.windler.console`（已授予 Termux RUN_COMMAND 权限） |
 | 运行基座 | Windler，家目录 `~/windler`，runit 服务 `windler` |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |

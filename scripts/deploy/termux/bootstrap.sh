@@ -4,7 +4,7 @@
 set -e
 SRC=/sdcard/Download/windler-bootstrap
 yes | pkg update -y -o Dpkg::Options::=--force-confnew
-pkg install -y -o Dpkg::Options::=--force-confnew openssh nodejs-lts termux-services termux-api git rsync
+pkg install -y -o Dpkg::Options::=--force-confnew openssh nodejs-lts termux-services termux-api git rsync ffmpeg imagemagick  # 后两者：运行基座缩小大图片（看图）
 
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 cat "$SRC/authorized_keys" > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys
