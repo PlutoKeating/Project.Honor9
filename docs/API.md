@@ -38,7 +38,6 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 | `termux-install.sh` | — | 校验 sha256 后安装 Termux、Termux:Boot、Termux:API（GitHub 版，签名一致，APK 在 `backups/apks/`） |
 | `termux-bootstrap.sh` | — | 首次引导：推送引导文件到 `/sdcard/Download/windler-bootstrap/`，在 Termux 界面模拟输入执行 `termux/bootstrap.sh`，完成后通过 ssh 验证 |
 | `windler-release.sh` | 无参数 / `rollback` | 测试、构建并发布运行基座与适配器，健康检查失败自动回滚 |
-| `migrate-to-windler.sh` | — | 一次性迁移（可重复执行）：旧 Amani 部署 → Windler。停旧服务，`~/amani` 改名为 `~/windler`（数据全部保留），修正版本链接，移除旧服务与开机脚本，换装控制台 `xyz.windler.console` 并放行；之后执行 `windler-release.sh` |
 | `lib.sh` | 被引用 | `dssh` / `dscp`：经 USB 端口转发连接 Termux 的 ssh |
 | `power-no-optimize.sh` | 无参数 / `restore` | 全局关闭省电优化（第一轮精简时引入） |
 

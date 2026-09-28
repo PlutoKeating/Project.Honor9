@@ -122,8 +122,8 @@
 |---|---|
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
-| 控制台 App | 「Windler」`xyz.windler.console`（已授予 Termux RUN_COMMAND 权限；2026-09-28 由 `xyz.amani.console` 更换，需重新配对） |
-| 运行基座 | Windler（原名 Amani），家目录 `~/windler`，runit 服务 `windler` |
+| 控制台 App | 「Windler」`xyz.windler.console`（已授予 Termux RUN_COMMAND 权限） |
+| 运行基座 | Windler，家目录 `~/windler`，runit 服务 `windler` |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
 | 屏幕超时 | 无限（`2147483647`，2026-09-28 起；原 10 分钟，出厂 30 秒） |
