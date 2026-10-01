@@ -48,6 +48,7 @@ flowchart TB
 $PREFIX/var/service/windler/run         runit 服务（scripts/deploy/termux/windler-run）
 $PREFIX/var/log/sv/windler/current      运行日志
 ~/windler/                              WINDLER_HOME（结构见 Project.Windler 文档）
+~/windler/vault/                        保密库：你通过 pass_secret 保密输入的令牌、密码（0700/0600，只在这台手机上）
 ~/windler/releases/<时间>-<提交>/       main.cjs、main.cjs.map、honor9.mjs
 ~/windler/current → releases/…          正在运行的版本
 ~/windler/previous → releases/…         上一个版本（回滚用）
