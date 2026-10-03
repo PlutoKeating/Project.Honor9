@@ -20,3 +20,13 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 设备端文件（`scripts/deploy/termux/`）：`bootstrap.sh`（安装 openssh、nodejs-lts、termux-services、termux-api、git、rsync、ffmpeg、imagemagick（后两者可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js），配置 sshd 与外部调用）、`boot-windler`（开机脚本）、`windler-run`（runit 服务，以 `WINDLER_ADAPTER=$HOME/windler/current/termux.mjs` 启动）、`windler-log-run`（日志服务）。与 App 安装器写入的文件内容一致。
 
 ssh 密钥默认 `~/.ssh/windler_honor9`（可用 `WINDLER_SSH_KEY` 覆盖），只存在于主机。
+
+## 3. 精简脚本 `scripts/debloat/`
+
+| 脚本 | 用法 | 作用 |
+|---|---|---|
+| `apply.sh` | `<清单文件> [disable\|uninstall\|restore]` | 逐行处理包清单；清单在 `configs/packages/`（荣耀9）与 `configs/packages/eva-al10/`（P9） |
+| `block-ota.sh` | 无参数 / `clear` / `restore` | 屏蔽 EMUI 系统更新 HwOUC（受保护无法卸载），`clear` 同时清掉已下载的更新包 |
+| `post-boot.sh` | `[清单目录]`，默认 `configs/packages` | 每次开机后运行：重新卸载被 EMUI 重装的包、重新关闭省电优化、重新屏蔽 HwOUC。P9 传 `configs/packages/eva-al10` |
+
+多台手机同时连接时先 `export ANDROID_SERIAL=<序列号>`，脚本内部都用 `adb shell -n`，会继承该变量。
