@@ -27,7 +27,8 @@
 | 2 · 精简 | 分批禁用或卸载无用的应用和服务，观察系统稳定性 | `configs/packages/`，`scripts/debloat/` |
 | 3 · 调优 | 常驻保活、省电策略、网络、温控、充电上限 | `configs/services/`，实验记录 |
 | 4 · 环境 | Termux + runit 运行环境，打通主机和设备的通信 | `scripts/deploy/` ✅ |
-| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Windler/`、`adapters/honor9/` |
+| 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Windler/`（含 Termux 身体适配器） |
+| 6 · 开放 | 让任何人在一台旧安卓手机上装好 Windler、接入或创造自己的 agent | Windler App 的安装向导（子模块），本仓库退为荣耀9 特有的精简与运维 |
 
 ## 关于 Amani（神谷薰）
 
