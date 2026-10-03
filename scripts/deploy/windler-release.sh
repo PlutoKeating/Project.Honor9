@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# 构建并发布 Windler 运行基座到荣耀9：核心（子模块 Project.Windler/runtime）+ 身体适配器（adapters/honor9）。
+# 开发者路径：从主机经 ssh 构建并发布 Windler 运行基座到荣耀9（核心 main.cjs + Termux 身体适配器 termux.mjs，均来自子模块 Project.Windler/runtime）。
+# 使用者路径是手机上 Windler App 的安装向导（见 Project.Windler/docs/QUICK_START.md），两者的目录与服务约定一致。
 # 每个版本放在 ~/windler/releases/<版本>/，current 指向运行中的版本；健康检查失败自动回滚到上一版本。
 # 用法：windler-release.sh [rollback]
 set -eu
@@ -17,7 +18,6 @@ if [ "${1:-}" = rollback ]; then
 fi
 
 ( cd Project.Windler/runtime && { [ -d node_modules ] || npm ci --silent; } && npm test --silent >/dev/null && npm run build --silent )
-( cd adapters/honor9 && { [ -d node_modules ] || npm ci --silent; } && npm run build --silent )
 V="$(date +%Y%m%d-%H%M%S)-$(git -C Project.Windler rev-parse --short HEAD)"
 echo "发布 $V"
 
@@ -27,7 +27,7 @@ dscp scripts/deploy/termux/windler-run localhost:../usr/var/service/windler/run
 dscp scripts/deploy/termux/windler-log-run localhost:../usr/var/service/windler/log/run
 dscp scripts/deploy/termux/boot-windler localhost:.termux/boot/windler
 dssh "chmod 700 $SV/run $SV/log/run .termux/boot/windler && mkdir -p $R/$V"
-dscp Project.Windler/runtime/dist/main.cjs Project.Windler/runtime/dist/main.cjs.map adapters/honor9/dist/honor9.mjs "localhost:windler/releases/$V/"
+dscp Project.Windler/runtime/dist/main.cjs Project.Windler/runtime/dist/main.cjs.map Project.Windler/runtime/dist/termux.mjs "localhost:windler/releases/$V/"
 
 cur=$(dssh 'readlink $HOME/windler/current || true')
 [ -n "$cur" ] && dssh "ln -sfn $cur \$HOME/windler/previous"
