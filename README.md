@@ -17,6 +17,8 @@
 
 更多硬件与系统信息见 [设备档案](docs/device/honor9-profile.md)：麒麟 960、6 GB RAM、128 GB 存储、Mali-G71、Bootloader 已锁。
 
+2026-10-04 起还接入了第二台实验机 **华为 P9 (EVA-AL10)**（麒麟 955、4 GB、Android 8.0 / EMUI 8.0），档案见 [docs/device/p9-eva-al10-profile.md](docs/device/p9-eva-al10-profile.md)。两台同时连接时，所有命令都要先 `export ANDROID_SERIAL=<序列号>`。
+
 项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)，架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 Amani 的运行基座本身在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler)（子模块 `Project.Windler/`），其中已包含任意安卓手机通用的 Termux 身体适配器与带安装向导的 App；本仓库负责这台手机特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署与运维、设备档案与实验记录。
@@ -27,7 +29,7 @@ Amani 的运行基座本身在独立仓库 [Project.Windler](https://github.com/
 .
 ├── Project.Windler/          # 子模块：Windler 运行基座、Termux 身体适配器与 App（独立仓库，设备无关）
 ├── configs/
-│   ├── packages/           # 应用包清单（保留 / 禁用 / 卸载）
+│   ├── packages/           # 应用包清单（保留 / 禁用 / 卸载）；荣耀9 在根下，P9 在 eva-al10/
 │   └── services/           # 系统服务裁剪清单
 ├── AGENTS.md               # Agent 开发规范与项目规则（新会话必读）
 ├── CLAUDE.md -> AGENTS.md  # 软链接
@@ -81,8 +83,8 @@ scripts/deploy/windler-release.sh         # 构建并发布 Windler 运行基座
 
 - [x] 建立 ADB 连接
 - [ ] 全量备份（应用列表、用户数据）
-- [ ] 梳理预装应用与系统服务，制定裁剪清单
-- [ ] 分批精简，并验证系统稳定性
+- [x] 梳理预装应用与系统服务，制定裁剪清单（荣耀9 251 → 108，P9 196 → 85）
+- [x] 分批精简，并验证系统稳定性（重启后需运行 `scripts/debloat/post-boot.sh`）
 - [x] 搭建智能体运行环境（Termux + runit，见 [架构](docs/ARCHITECTURE.md)）
 - [x] 部署 Windler 运行基座与控制台 App（[Project.Windler](https://github.com/PlutoKeating/Project.Windler)）
 - [ ] 配置模型、接入飞书与灵魂仓库，让她开始自主生活

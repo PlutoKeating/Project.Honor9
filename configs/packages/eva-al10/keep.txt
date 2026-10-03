@@ -1,0 +1,48 @@
+# P9 (EVA-AL10) 刻意保留，不要卸载
+# 框架与核心
+android
+androidhwext
+com.android.systemui
+com.android.settings
+com.android.keyguard            # 这台机上是 HwMagazine，即锁屏本体
+com.huawei.android.launcher
+huawei.android.widget           # 桌面依赖的系统控件库
+com.android.providers.*
+com.android.packageinstaller
+com.android.documentsui
+com.android.externalstorage
+com.android.shell
+com.android.phone
+com.android.server.telecom
+com.android.incallui
+com.android.contacts
+com.android.mms
+com.android.mms.service
+com.android.deskclock           # 荣耀9 经验：时钟与联系人依赖的组件被删会崩，保留
+com.google.android.webview      # 本机唯一的 WebView
+com.baidu.input_huawei          # 本机唯一的完整输入法
+com.huawei.secime
+com.huawei.systemmanager
+com.huawei.systemserver
+com.huawei.powergenie           # 部署 Windler 时由 scripts/deploy/prepare-system.sh 卸载
+com.huawei.iaware
+com.huawei.android.hsf
+com.huawei.android.hwaps
+com.huawei.android.internal.app
+com.huawei.hwid                 # HMS 核心，荣耀9 经验：删除会引发崩溃
+com.huawei.ca
+com.huawei.securitymgr
+com.huawei.camera
+com.android.gallery3d
+com.android.gallery3d.overlay
+com.huawei.bluetooth
+com.huawei.ims
+com.huawei.msdp
+com.google.android.gms          # 设备管理器，无法卸载
+com.google.android.ext.services
+com.google.android.ext.shared
+com.google.android.overlay.*
+com.android.frameworkhwext.*
+com.android.frameworkres.overlay
+com.svox.pico                   # 本机自带的离线 TTS 引擎，留给智能体说话用
+# 受保护，无法卸载：com.huawei.android.hwouc（用 block-ota.sh 屏蔽）、com.huawei.hwstartupguide

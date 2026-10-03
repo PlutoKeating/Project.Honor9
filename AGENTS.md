@@ -174,7 +174,7 @@ Agent 的工作边界：
 
 ### 项目意图
 
-- 目标设备：一台通过 USB ADB 连接到本机的**荣耀9 (STF-AL10)** 实验机。设备详情见 `docs/device/honor9-profile.md`。
+- 目标设备：一台通过 USB ADB 连接到本机的**荣耀9 (STF-AL10)** 实验机。设备详情见 `docs/device/honor9-profile.md`。2026-10-04 起另有第二台实验机 **华为 P9 (EVA-AL10)**（`docs/device/p9-eva-al10-profile.md`，清单在 `configs/packages/eva-al10/`）；多台同时连接时必须 `export ANDROID_SERIAL=<序列号>`，序列号只在 `private/`。
 - 目的：尽可能裁剪和精简设备上用不到的功能、软件和服务，把它改造成 AI-Native 时代的**智能体工坊**，并把 **「Amani（神谷薰）」** 智能体的运行基座适配到这台手机上。
 - 本仓库与 Amani 本体解耦：Windler 运行基座的设计与实现在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler)（以子模块 `Project.Windler/` 引入）；本仓库只放荣耀9 特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署脚本、设备配置与实验记录；任意安卓手机通用的 Termux 身体适配器与带安装向导的 App 在子模块里。**两者在代码与配置上完全解耦**：本仓库不修改子模块内的代码来适配具体机型，只通过环境变量与配置文件对接。
 - 智能体命名：英文名 **Amani**，中文名 **神谷薰**，代码与目录标识符统一用 `amani`。

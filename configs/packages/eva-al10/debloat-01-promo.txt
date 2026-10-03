@@ -1,0 +1,40 @@
+# P9 (EVA-AL10) 批次 01：预装推广与第三方合作应用（pm uninstall -k --user 0）
+# 这些包大多在 /data/hw_init、/cust、/preas，卸载后会从 pm list -u 中整个消失，
+# 只能用备份里的 APK 路径 pm install -r --user 0 恢复，见 docs/experiments/2026-10-04-p9-debloat.md
+com.android.browser
+com.huawei.appmarket
+com.huawei.fans
+com.huawei.hiskytone
+com.huawei.skytone
+com.huawei.vdrive
+com.huawei.wallet
+com.huawei.android.AutoRegSms
+com.huawei.android.UEInfoCheck
+com.huawei.gamebox
+com.huawei.gameassistant
+com.huawei.health
+com.huawei.hwireader
+com.huawei.regservice
+com.huawei.educenter
+com.huawei.welinknow
+com.petal.litegames
+com.huawei.android.karaoke
+com.huawei.vrservice
+com.huawei.hwonlineprovisionservice
+com.vmall.client
+com.huawei.himovie
+com.huawei.hwvplayer.youku
+com.huawei.lives
+com.huawei.smarthome
+com.huawei.bone
+com.huawei.watch.sync
+com.huawei.phoneservice
+com.huawei.hicloud
+com.huawei.hidisk
+com.hicloud.android.clone
+com.huawei.android.findmyphone
+com.huawei.android.hwpay
+com.huawei.yellowpage
+com.android.vending
+com.google.android.marvin.talkback
+com.google.android.printservice.recommendation

@@ -1,0 +1,25 @@
+# P9 (EVA-AL10) 批次 03：后台服务、遥测、推送、账号周边（pm uninstall -k --user 0）。风险较高，逐个确认稳定性
+com.huawei.android.pushagent
+com.huawei.android.chr
+com.huawei.hiview
+com.huawei.hiviewtunnel
+com.huawei.bd
+com.huawei.contentsensor
+com.huawei.lbs
+com.amap.android.ams
+com.huawei.wifiprobqeservice
+com.huawei.behaviorauth
+com.huawei.trustagent
+com.huawei.trustcircle
+com.huawei.motionservice
+com.huawei.cryptosms.service
+com.huawei.fido.uafclient
+com.huawei.hwasm
+com.iflytek.speechsuite
+com.google.android.gsf
+com.google.android.partnersetup
+com.google.android.backuptransport
+com.google.android.onetimeinitializer
+com.google.android.syncadapters.contacts
+com.google.android.configupdater
+org.simalliance.openmobileapi.service
