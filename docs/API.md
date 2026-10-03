@@ -21,6 +21,8 @@ Windler 的网关 API 与适配器接口定义见子模块 [`Project.Windler/doc
 
 ssh 密钥默认 `~/.ssh/windler_honor9`（可用 `WINDLER_SSH_KEY` 覆盖），只存在于主机。
 
+运维时直接调网关：`tools/windler-rpc.mjs`（Termux 里的 Node 24 自带 `WebSocket`，用 `~/windler/secrets/gateway.token` 连 `ws://127.0.0.1:7788/rpc`）能调任何方法（例如 `hearing`、`setHearing`、`tools`、`chat.send`），不需要控制台；听觉可以用 `speechTest` 合成一句话、`ffmpeg` 转成 16 kHz WAV、`curl` POST 到 `/hear?started=<毫秒>` 来验证，见 `docs/experiments/2026-10-04-windler-tools-identity-hearing.md`。
+
 ## 3. 精简脚本 `scripts/debloat/`
 
 | 脚本 | 用法 | 作用 |
