@@ -20,7 +20,7 @@ flowchart TB
       ADP["termux.mjs<br/>Termux 身体适配器（子模块 runtime/adapters/termux）"]
       API["Termux:API<br/>电量 · 传感器 · 通知 · TTS · 相机 · 麦克风 · 定位 · 剪贴板"]
     end
-    CON["Windler App<br/>（子模块 console 构建；内置运行基座与安装器）"]
+    CON["Windler App<br/>（子模块 console 构建；内置运行基座与安装器；0.3.0 起也是耳朵）"]
   end
   HOST["开发主机（开发者路径）"] -- "USB：adb forward 8022 → ssh" --> SSHD
   CON -- "安装 / 升级：RUN_COMMAND + 本机 HTTP" --> RUNIT
@@ -29,6 +29,7 @@ flowchart TB
   WINDLER -- import --> ADP --> API
   CON -- "127.0.0.1:7788 网关" --> WINDLER
   CON -- "离线时 RUN_COMMAND 点火" --> RUNIT
+  CON -- "听觉：麦克风前台服务 → /hear" --> WINDLER
 ```
 
 | 层 | 作用 | 原理 |
@@ -39,7 +40,7 @@ flowchart TB
 | 守护 | 崩溃立即恢复 | runit 监视 `$PREFIX/var/service/windler`，进程退出即重新执行 `run`；日志交给 `svlogd` 自动轮转（`$PREFIX/var/log/sv/windler/`）。连续崩溃的熔断在运行基座内部。 |
 | 身体适配器 | 设备的感官与动作 | 子模块的 Termux 适配器：调用 Termux:API 命令行工具，传感器按名字探测（这台机上是 BH1745 光线与 BMI160 加速度），机型只作描述。 |
 | 运维通道 | 部署、诊断（开发者） | `adb shell` 读不到 Termux 私有目录，因此通过 USB 端口转发 ssh 进入 Termux。端口不对局域网开放。 |
-| Windler App | 安装、观察与管理 | 与运行基座同在手机上，连本机网关；内置运行基座与 Termux 适配器，安装向导通过 Termux RUN_COMMAND 执行安装脚本（`Project.Windler/console/assets/install/install.sh`），离线时同一接口重新执行开机脚本点火。 |
+| Windler App | 安装、观察、管理、听 | 与运行基座同在手机上，连本机网关；内置运行基座与 Termux 适配器，安装向导通过 Termux RUN_COMMAND 执行安装脚本（`Project.Windler/console/assets/install/install.sh`），离线时同一接口重新执行开机脚本点火。0.3.0 起 App 还是这具身体的**耳朵**：Android 9 只允许前台服务常驻拿麦克风，Termux:API 的录音只能定长录文件，所以听觉放在 App 的原生前台服务里（系统降噪 + WebRTC VAD 断句），每句话 POST 到基座 `/hear`，由基座用 Azure 识别后以「环境声音」交给 Amani 判断是否回应。 |
 
 ## 2. 设备上的目录
 
@@ -50,6 +51,7 @@ $PREFIX/var/service/windler/run         runit 服务（scripts/deploy/termux/win
 $PREFIX/var/log/sv/windler/current      运行日志
 ~/windler/                              WINDLER_HOME（结构见 Project.Windler 文档）
 ~/windler/vault/                        保密库：你通过 pass_secret 保密输入的令牌、密码（0700/0600，只在这台手机上）
+~/windler/tools/<名>/                   Amani 自己造的工具的实现（tool.json + tool.sh | tool.mjs，只在这台手机上；意图文档在灵魂仓库 skills/）
 ~/windler/releases/<版本>/              main.cjs、termux.mjs（ssh 发布为 <时间>-<提交>，并多一个 main.cjs.map；App 安装为运行基座版本号）
 ~/windler/current → releases/…          正在运行的版本
 ~/windler/previous → releases/…         上一个版本（回滚用）
@@ -74,3 +76,4 @@ flowchart LR
 - **Doze 在重启后恢复**：EMUI 开机会恢复 Doze；Termux 已在省电白名单中，不影响唤醒锁与网络。
 - **充电上限**：`/sys/class/power_supply` 与华为充电节点对 shell 与应用都不可写，未 root 时无法设置 75% 停充。
 - **操作屏幕与其他应用**（hands）：尚未实现，接口已预留，需要无障碍服务或 shell 身份。
+- **听觉与 `record_audio` 共用麦克风**：Android 9 不允许两个应用同时录音，App 的耳朵开着时 Termux:API 的 `record_audio` 可能录到静音；需要她录音时先在「听觉」里关掉。耳朵的前台服务依赖 App 进程，重启手机后要打开一次 App 才会重新开始听（Android 9 没有「后台启动麦克风服务」的限制，但 App 本身不自启）。
