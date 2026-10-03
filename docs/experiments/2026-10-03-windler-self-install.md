@@ -38,15 +38,19 @@ Termux 出于安全设计，默认拒绝外部应用下发命令（`allow-extern
 | runtime `npm run build` | `main.cjs` 6.2 MB、`termux.mjs` 7.6 KB |
 | console `flutter analyze` / `flutter test` | 无问题 / 12 项通过（新增安装器命令、进度解析、本机 HTTP 服务） |
 | console `flutter build apk --release` | 23.3 MB（内置运行基座后） |
-| `install.sh` | `bash -n` 语法通过；**尚未在真机上跑过**（会把这台机升级到 0.2.0 并换用 termux.mjs，等授权后做） |
+| `install.sh` | `bash -n` 语法通过；真机升级见下 |
 
-## 待真机验证
+## 真机验证（2026-10-03 21:18，通过 uiautomator 驱动 App）
 
-- `RUN_COMMAND` 执行安装脚本的完整流程（进度回报、令牌回传、健康检查与回退）。
-- App 升级横幅与「升级 / 重装」接管现有的 ssh 发布部署。
-- 第一次打开 Termux 尚未初始化完成时向导的提示是否清楚。
+1. `adb install -r` 新 APK（0.2.0+2）后打开 App：首页顶部出现「App 内置的运行基座是 0.2.0，正在运行的是 0.1.0」横幅与「升级」按钮。
+2. 点「升级」进入向导：三件套版本检测正确（0.118.3 / 0.53.0 / 0.8.1），第 2 步显示「已授权」，第 3 步回连探测通过，第 4 步「升级到 0.2.0」可点。
+3. 点下后约 10 秒完成：`install.log` 依次 pkg（已有，跳过安装）→ runtime → service → config（`body honor9 timezone Asia/Shanghai`，原值保留）→ start（`sv restart` 成功）→ health；向导显示「完成：运行基座 0.2.0 已启动，控制台已自动连接」。
+4. 核验：`/health` 版本 0.2.0；`current → releases/0.2.0`，`previous → releases/20261001-142312-89f9185`（ssh 发布的旧版本，可回滚）；`run` 已改为 `WINDLER_ADAPTER=…/termux.mjs`；日志 `[body] 身体：termux（一台 STF-AL10 安卓手机…有相机、麦克风、扬声器、光线与运动传感器）`；网关令牌未变（控制台无需重新配对）；飞书重新连上。返回首页横幅消失、状态在线。
+5. **灵魂仓库**：同一版本带入规范 v4（不再检查内容）。通过网关触发 `syncSoul`：`补齐灵魂仓库规范结构` + `控制台 触发同步` 两次提交，10-02 以来被挡住的全部记忆改动已推送到远端，`lastError` 为空，工作区干净。
+
+未验证：第一次打开 Termux 尚未初始化完成时向导的提示是否清楚（这台机早已初始化）。
 
 ## 回滚
 
 - 子模块：`git -C Project.Windler checkout 89f9185`，本仓库 `git checkout <上一提交> -- .`。
-- 手机：未做任何改动。若之后用 App 升级失败，脚本自动切回 `previous`；手工回滚 `scripts/deploy/windler-release.sh rollback`。
+- 手机：`scripts/deploy/windler-release.sh rollback` 切回 `previous`（ssh 发布的 0.1.0），或在 App 服务页重新「升级 / 重装」。规范 v4 的仓库文件 `.soul-spec.json` 回到 v3 实现也能读。

@@ -122,9 +122,10 @@
 |---|---|
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
-| 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（运行基座缩小大图片；2026-09-28 修复了 ffmpeg 因 libc++ 版本不匹配无法运行的问题） |
-| 控制台 App | 「Windler」`xyz.windler.console`（已授予 Termux RUN_COMMAND 权限） |
-| 运行基座 | Windler，家目录 `~/windler`，runit 服务 `windler` |
+| 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
+| Windler App | `xyz.windler.console` 0.2.0（内置运行基座与安装器；已授予 Termux RUN_COMMAND 权限） |
+| 运行基座 | Windler 0.2.0（2026-10-03 由 App 的「升级 / 重装」安装，目录 `~/windler/releases/0.2.0`），家目录 `~/windler`，runit 服务 `windler`，身体适配器 `termux.mjs`（子模块通用 Termux 适配器；身体名仍为 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
+| 灵魂仓库 | 规范 v4（2026-10-03 起内容不做任何检查） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
 | 屏幕超时 | 无限（`2147483647`，2026-09-28 起；原 10 分钟，出厂 30 秒） |
