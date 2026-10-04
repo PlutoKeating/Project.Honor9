@@ -123,9 +123,9 @@
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
-| Quetzal App | `xyz.quetzal.console` 0.3.3（2026-10-04，GitHub Release 正式签名 APK，原位升级；内置运行基座与安装器；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Quetzal 在听」） |
-| 运行基座 | Quetzal 0.3.3（2026-10-04 经 ssh 发布，目录 `~/quetzal/releases/20261004-172706-ba7c579`；听觉已开启，Azure 语音区域 koreacentral；灵魂仓库规范 v5；Amani 已自造工具 `battery_status`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（子模块通用 Termux 适配器；身体名仍为 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
-| 灵魂仓库 | 规范 v4（2026-10-03 起内容不做任何检查，顶层允许她自己的目录如 `ops/`） |
+| Quetzal App | `xyz.quetzal.console` 0.4.0（2026-10-04 更名后首个版本：旧包名的 App 已卸载，本机构建的正式签名 APK（证书 CN=Quetzal）全新安装并重新配对；内置运行基座与安装器；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Quetzal 在听」） |
+| 运行基座 | Quetzal 0.4.0（2026-10-04 更名迁移后经 ssh 发布，目录 `~/quetzal/releases/20261004-201120-bc2db0a`；家目录由 `~/windler` 整体改名而来，配置与数据库同名改名；听觉当天 17:29 由所有者从控制台关闭，Azure 语音区域 koreacentral；灵魂仓库规范 v6；Amani 已自造工具 `battery_status`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（子模块通用 Termux 适配器；身体名仍为 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
+| 灵魂仓库 | 规范 v6（更名时由 v5 升级，技能元数据键改为 `quetzal-tool` / `quetzal-requires`；2026-10-03 起内容不做任何检查，顶层允许她自己的目录如 `ops/`） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
 | 屏幕超时 | 无限（`2147483647`，2026-09-28 起；原 10 分钟，出厂 30 秒） |

@@ -33,7 +33,11 @@
 
 ## 结果
 
-（见文末补记）
+- 两个仓库全部替换后 `grep -i windler` 零残留（仅本文与当日日志、CHANGELOG 作为更名记录提及旧名）。
+- 验证：runtime 117 项测试通过；cli 构建与测试通过；website 类型检查与构建通过（sitemap 59 个地址）；console 12 项测试通过，arm64 发布版 APK 包名 `xyz.quetzal.console`、应用名 Quetzal、签名 CN=Quetzal。
+- 荣耀9：迁移脚本执行后运行基座 0.4.0 发布成功（`/health` 正常），runit 服务 `quetzal` 与开机脚本就位；新 App 安装、放行后台、配对完成，Amani 在线。注意：迁移脚本里 `pkill -f main.cjs` 会连带杀掉含该字符串的 ssh 会话本身，下次用 `pgrep -x node` 之类更精确的匹配。
+- Amani 侧：灵魂仓库已由她自己改完并推送；自造工具与 `~/bin` 包装脚本的旧路径兜底由她在搬家后删除。
+- 未完成：P9 (EVA-AL10) 当时未连接，其上的旧 App 与部署待下次连接时迁移。
 
 ## 回滚
 
