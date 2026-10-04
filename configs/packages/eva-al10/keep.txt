@@ -24,7 +24,7 @@ com.baidu.input_huawei          # 本机唯一的完整输入法
 com.huawei.secime
 com.huawei.systemmanager
 com.huawei.systemserver
-com.huawei.powergenie           # 部署 Windler 时由 scripts/deploy/prepare-system.sh 卸载
+com.huawei.powergenie           # 部署 Quetzal 时由 scripts/deploy/prepare-system.sh 卸载
 com.huawei.iaware
 com.huawei.android.hsf
 com.huawei.android.hwaps

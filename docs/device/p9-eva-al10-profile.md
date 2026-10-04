@@ -119,7 +119,7 @@
 | `com.svox.pico` | 自带离线 TTS 引擎（荣耀9 没有），可供智能体说话 |
 | `com.baidu.input_huawei` | 本机唯一的完整输入法 |
 | `com.google.android.webview` | 本机唯一的 WebView |
-| `com.huawei.powergenie` | 暂留；部署 Windler 时由 `scripts/deploy/prepare-system.sh apply` 卸载 |
+| `com.huawei.powergenie` | 暂留；部署 Quetzal 时由 `scripts/deploy/prepare-system.sh apply` 卸载 |
 
 ## 电源策略（2026-10-04 起）
 

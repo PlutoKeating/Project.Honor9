@@ -14,7 +14,7 @@
 - Azure 语音工具与设置；
 - 聊天自动滚到底部，以及「新消息」按钮。
 
-## 改动（Project.Windler 83e83d9、28d17a4；本仓库适配器）
+## 改动（Project.Quetzal 83e83d9、28d17a4；本仓库适配器）
 
 - **基座**：
   - 会话表；消息保存会话、执行过程、附件与插话方式；
@@ -60,5 +60,5 @@
 
 ## 回滚
 
-- 基座：`scripts/deploy/windler-release.sh rollback`。旧版运行时会忽略 messages 表的新列和 sessions 表。
+- 基座：`scripts/deploy/quetzal-release.sh rollback`。旧版运行时会忽略 messages 表的新列和 sessions 表。
 - 控制台：安装上一版 APK。

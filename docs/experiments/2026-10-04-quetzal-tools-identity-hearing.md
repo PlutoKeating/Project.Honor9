@@ -1,4 +1,4 @@
-# 实验：Windler 0.3.0——自造工具、自编身份、听觉
+# 实验：Quetzal 0.3.0——自造工具、自编身份、听觉
 
 日期：2026-10-04
 
@@ -12,12 +12,12 @@
 
 ## 调研（避免重复造轮子）
 
-- 技能文档直接采用 [Agent Skills](https://agentskills.io/specification) 开放标准的 `SKILL.md`（YAML 头 `name` / `description`）：Hermes Agent 与 OpenClaw 都原生读取这个格式，Hermes 自己也是「多步流程成功后自动沉淀 SKILL.md」。所以灵魂仓库里只同步意图文档（规范升到 v5，新增可选目录 `skills/`），实现代码留在本机 `~/windler/tools/`。
+- 技能文档直接采用 [Agent Skills](https://agentskills.io/specification) 开放标准的 `SKILL.md`（YAML 头 `name` / `description`）：Hermes Agent 与 OpenClaw 都原生读取这个格式，Hermes 自己也是「多步流程成功后自动沉淀 SKILL.md」。所以灵魂仓库里只同步意图文档（规范升到 v5，新增可选目录 `skills/`），实现代码留在本机 `~/quetzal/tools/`。
 - 语音活动检测用 [android-vad](https://github.com/gkonovalov/android-vad) 的 WebRTC 模块（MIT，JitPack，纯 Kotlin，16 kHz / 20 ms 帧，自带起止迟滞）；采集源用 `VOICE_RECOGNITION` 走系统降噪链，再叠 `NoiseSuppressor` / `AutomaticGainControl`。Silero 方案要带 ONNX 运行时，暂不用。
 - 识别用 Azure 短语音 REST（`language` 必填，`format=simple`，WAV 16 kHz 单声道，60 秒上限），与语音合成同一把密钥，端点由区域推导。
-- Android 9 起后台应用拿不到麦克风，Termux:API 的 `termux-microphone-record` 只能定长录文件、切片会丢字，所以耳朵放在 Windler App 的原生前台服务里。这是 App 第一次承担身体的一部分。
+- Android 9 起后台应用拿不到麦克风，Termux:API 的 `termux-microphone-record` 只能定长录文件、切片会丢字，所以耳朵放在 Quetzal App 的原生前台服务里。这是 App 第一次承担身体的一部分。
 
-## 做了什么（Windler 子模块，提交 3253dd4、1846080、5e89aab）
+## 做了什么（Quetzal 子模块，提交 3253dd4、1846080、5e89aab）
 
 1. **运行基座**：`mind/custom-tools.ts`（工具实现的校验、热加载、执行、依赖检查；技能文档读写）、`voice/hearing.ts`（`/hear` → Azure 识别 → 挑会话 → 以第三种消息类型 `ambient` 交给 `converse`；她说话期间丢弃；受电量、温度、急停限制）、`voice/azure.ts` 加识别接口；工具 `tool_write` / `tool_read` / `tool_delete`、`edit_identity`、`hearing_config`；系统提示加「技能与自造工具」「听觉」段落，种子身份的提示改为不急着取名；做梦任务加「回顾重复流程沉淀为工具」；操作层 `hearing` / `setHearing` / `tools.*`；`status.hearing` 供 App 决定开不开麦克风。测试 102 项通过（新增 `custom-tools.test.ts`、`hearing.test.ts`）。
 2. **控制台**：`HearingService.kt` 麦克风前台服务（WAV 直接 POST `/hear`，不经过 Flutter）、听觉桥；控制 → 听觉、控制 → 工具两个页面；对话页把环境声音居中小字显示；心流新增听见 / 工具 / 身份；首页「在听」标记；身份页显示她自选的颜色。`flutter analyze` 无问题、`flutter test` 12 项通过。
@@ -27,20 +27,20 @@
 
 ```bash
 export ANDROID_SERIAL=<荣耀9 序列号>
-adb install -r Project.Windler/console/build/app/outputs/flutter-apk/app-release.apk   # 0.2.1 → 0.3.0 原位升级（同一正式签名，配对保留）
-scripts/deploy/windler-release.sh        # 运行基座 0.3.0：releases/20261004-060908-5e89aab，健康检查通过
-adb shell pm grant xyz.windler.console android.permission.RECORD_AUDIO               # 正常路径是听觉页里的系统弹窗
+adb install -r Project.Quetzal/console/build/app/outputs/flutter-apk/app-release.apk   # 0.2.1 → 0.3.0 原位升级（同一正式签名，配对保留）
+scripts/deploy/quetzal-release.sh        # 运行基座 0.3.0：releases/20261004-060908-5e89aab，健康检查通过
+adb shell pm grant xyz.quetzal.console android.permission.RECORD_AUDIO               # 正常路径是听觉页里的系统弹窗
 ```
 
-验证用 `tools/windler-rpc.mjs`（放到手机家目录；Node 24 自带 `WebSocket`，读 `~/windler/secrets/gateway.token` 连网关）：
+验证用 `tools/quetzal-rpc.mjs`（放到手机家目录；Node 24 自带 `WebSocket`，读 `~/quetzal/secrets/gateway.token` 连网关）：
 
 - `hearing` → 未开启；灵魂仓库已自动补齐为规范 v5（提交「补齐灵魂仓库规范结构」）；`speech.configured` 为真（区域 koreacentral）。
 - **造工具**：在新会话里请她「用 tool_write 造一个 battery_status」。她自己写了 `tool.sh`（`termux-battery-status` + `jq`，`requires` 两项，超时 30 秒）和一份规范格式的 `SKILL.md`（用途、参数、实现思路、依赖、验证），中途还发现 `/tmp` 在这台机上不存在、改用家目录重测；灵魂仓库多了提交「技能：battery_status（honor9）」，`tools` 接口里 `missing` 为空、`hasSkill` 为真，时间线有「造了一个工具：battery_status」。
 - **听觉（后端）**：`setHearing {enabled:true}` → `listening: true`；用 `speechTest` 合成「薰，你能听到我说话吗？」→ `ffmpeg` 转 16 kHz WAV → `curl` POST `/hear` → 返回 `{"ok":true,"text":"熏，你能听到我说话吗？","conv":"<造工具的那个会话>"}`：识别正确（同音字「熏」），10 分钟窗口内并入了最近的会话；当时她正在造工具，这句话作为插话并入，她在过程里写道「他在问我要不要出声——我先把手上这步做完，然后立刻回他」，时间线有「被你在说话叫醒了」。会话记录里这句话的 `role` 为 `ambient`、通道「语音」。
-- **听觉（App 耳朵）**：第一版 App 在启动时只查一次麦克风权限，`pm grant` 在启动之后才授予，所以耳朵服务没有起来；修正为每次同步时重查、从系统设置回来时重查（Windler 15fbf82），重装后 `dumpsys activity services` 看到 `HearingService` 为前台服务（通知 `windler_hearing`），系统日志 `HwAudioRecordImpl state=3` 即在录音。
+- **听觉（App 耳朵）**：第一版 App 在启动时只查一次麦克风权限，`pm grant` 在启动之后才授予，所以耳朵服务没有起来；修正为每次同步时重查、从系统设置回来时重查（Quetzal 15fbf82），重装后 `dumpsys activity services` 看到 `HearingService` 为前台服务（通知 `quetzal_hearing`），系统日志 `HwAudioRecordImpl state=3` 即在录音。
 - **听觉（物理回环）**：用 `termux-media-player` 从手机扬声器播放上面那段合成语音，30 秒内运行日志出现 `[hearing] 听到（0903764f）：心，你能听到我说话吗？`，会话里多了第二条 `ambient` 消息——扬声器 → 麦克风（系统降噪 + VAD 断句）→ `/hear` → Azure → 会话，全程不经过电脑。两次识别都把「薰」听成同音字（熏、心），人名要靠她自己联想。
 
-## 续：插话分段、流式识别、取舍隐藏、长话不截断、插嘴（Windler 8013f08 / e6f169d / adbd0df / b140b76 / e72c819）
+## 续：插话分段、流式识别、取舍隐藏、长话不截断、插嘴（Quetzal 8013f08 / e6f169d / adbd0df / b140b76 / e72c819）
 
 所有者在验证过程中提出的改进，当天一并做完：
 
@@ -50,7 +50,7 @@ adb shell pm grant xyz.windler.console android.permission.RECORD_AUDIO          
 4. **长话截断**：原因是耳朵 0.8 秒静音就断句、基座用单句识别。改为停顿 1.5 秒才算说完、单段最长 120 秒；基座改为连续识别并拼接各段，REST 兜底按 50 秒分段。荣耀9 上重放一段约 25 秒、带停顿的合成语音：中间结果每半秒更新一次，最终完整；首版在收到「音频结束」时就收尾，丢了最后一个短句，改为等服务定稿最后一段（`sessionStopped`）再收尾。
 5. **她说话时插嘴（最终方案：收听音轨 = 麦克风音轨 − 扬声器音轨）**：首版在她播放合成语音时把耳朵捂住，所有者要求能插嘴；第二版在基座拿她念的文本和识别结果比对，但房间里有电视和人声时断句在她开口前就已经开着，她的话接在别人的句子后面，仍被当成环境声音进了会话（屏幕上看到她自己的话）。所有者明确要求信号层面的做法：耳朵开着时 App 向基座登记为播放器，她的合成语音经 `speak` 事件与 `GET /media/<文件名>` 交给 App 用通话音频路径（`AudioTrack`，`USAGE_VOICE_COMMUNICATION`）播放；采集改用 `VOICE_COMMUNICATION` 音源，HAL 的声学回声消除以本机正在放的声音为参考从麦克风里减掉。播放期间检测到持续 400ms 人声即插嘴：App 本地停播、`player.done` 回报打断它的那句话的标识，基座把那句话以「打断」并入。荣耀9 验证（`minChars` 临时调高，识别结果在交给她之前被丢弃，不污染她的记忆）：换音源后手机自己扬声器放出的声音（无论经 App 还是 `termux-media-player`）在麦克风音轨里全部被减掉，中间结果为零；`dumpsys media.audio_flinger` 显示输入源 7（voice communication），这台机没有软件 AEC 效果，靠 HAL 完成。因此手机自己的扬声器已不能模拟「别人在说话」，插嘴改用主机扬声器作外部声源验证（见下）。
 
-6. **外部声源验证**（`tools/windler-rpc.mjs --watch hearing / speaking`，主机 PipeWire 扬声器放音）：换成通话音源后耳朵仍能完整流式识别主机放出的话；她经 App 念长话时，主机在第 4 秒插话，播放在约 0.4 秒内被停止（`speaking` 的 `until` 提前到当时），插进来的话照常流式识别，之后以「打断」并入。失误：拉到主机播放的文件取错了，是她自己早先说过的一段约 60 字的话，超过临时门槛 50 字，这句话进了她的会话并得到回应（见「遗留」）。
+6. **外部声源验证**（`tools/quetzal-rpc.mjs --watch hearing / speaking`，主机 PipeWire 扬声器放音）：换成通话音源后耳朵仍能完整流式识别主机放出的话；她经 App 念长话时，主机在第 4 秒插话，播放在约 0.4 秒内被停止（`speaking` 的 `until` 提前到当时），插进来的话照常流式识别，之后以「打断」并入。失误：拉到主机播放的文件取错了，是她自己早先说过的一段约 60 字的话，超过临时门槛 50 字，这句话进了她的会话并得到回应（见「遗留」）。
 
 ## 结果与结论
 
@@ -64,8 +64,8 @@ adb shell pm grant xyz.windler.console android.permission.RECORD_AUDIO          
 
 ## 回滚
 
-- 运行基座：`scripts/deploy/windler-release.sh rollback`（回到 `previous` → 0.2.1）。
-- App：`adb install -r` 旧版 0.2.1 的 APK（`~/Downloads/windler-0.2.1-android-arm64-e36e113.apk`，同一签名）。
+- 运行基座：`scripts/deploy/quetzal-release.sh rollback`（回到 `previous` → 0.2.1）。
+- App：`adb install -r` 旧版 0.2.1 的 APK（`~/Downloads/quetzal-0.2.1-android-arm64-e36e113.apk`，同一签名）。
 - 听觉：控制台「控制 → 听觉」关闭，或 `setHearing {enabled:false}`；前台服务随之停止。
-- 自造工具：控制台「控制 → 工具」删除，或直接删 `~/windler/tools/<名>/`；技能文档在灵魂仓库历史里可撤销。
+- 自造工具：控制台「控制 → 工具」删除，或直接删 `~/quetzal/tools/<名>/`；技能文档在灵魂仓库历史里可撤销。
 - 灵魂仓库规范 v5 向下兼容，v4 实现读它不受影响。

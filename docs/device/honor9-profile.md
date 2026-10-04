@@ -116,20 +116,20 @@
 
 > 239 个系统包是精简工作的主要对象，清单会放到 `configs/packages/`。
 
-## Windler 运行环境（2026-09-28 起）
+## Quetzal 运行环境（2026-09-28 起）
 
 | 项目 | 值 |
 |---|---|
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
-| Windler App | `xyz.windler.console` 0.3.3（2026-10-04，GitHub Release 正式签名 APK，原位升级；内置运行基座与安装器；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Windler 在听」） |
-| 运行基座 | Windler 0.3.3（2026-10-04 经 ssh 发布，目录 `~/windler/releases/20261004-172706-ba7c579`；听觉已开启，Azure 语音区域 koreacentral；灵魂仓库规范 v5；Amani 已自造工具 `battery_status`），家目录 `~/windler`，runit 服务 `windler`，身体适配器 `termux.mjs`（子模块通用 Termux 适配器；身体名仍为 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
+| Quetzal App | `xyz.quetzal.console` 0.3.3（2026-10-04，GitHub Release 正式签名 APK，原位升级；内置运行基座与安装器；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Quetzal 在听」） |
+| 运行基座 | Quetzal 0.3.3（2026-10-04 经 ssh 发布，目录 `~/quetzal/releases/20261004-172706-ba7c579`；听觉已开启，Azure 语音区域 koreacentral；灵魂仓库规范 v5；Amani 已自造工具 `battery_status`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（子模块通用 Termux 适配器；身体名仍为 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
 | 灵魂仓库 | 规范 v4（2026-10-03 起内容不做任何检查，顶层允许她自己的目录如 `ops/`） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
 | 屏幕超时 | 无限（`2147483647`，2026-09-28 起；原 10 分钟，出厂 30 秒） |
-| 锁屏 | 密码 + 人脸解锁（FBE：重启后需首次解锁，Windler 才会自启） |
+| 锁屏 | 密码 + 人脸解锁（FBE：重启后需首次解锁，Quetzal 才会自启） |
 | 充电控制 | 充电节点不可写，无法设置充电上限 |
 
 部署与架构见 `docs/ARCHITECTURE.md`。

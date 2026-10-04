@@ -1,4 +1,4 @@
-# 实验：Windler 0.3.1——会话与子 agent 由她自己掌握
+# 实验：Quetzal 0.3.1——会话与子 agent 由她自己掌握
 
 日期：2026-10-04
 
@@ -6,7 +6,7 @@
 
 所有者提出：给 agent 一组她自己写不了的内置工具，让她能对会话本身动手——相当于人类在控制台 / 飞书里用的 `/new`、`/compact`、`/assign-agents`，但由她完全自主决定要不要调用、什么时候调用、怎么调用。
 
-## 做了什么（Windler 子模块，提交见本仓库子模块指针）
+## 做了什么（Quetzal 子模块，提交见本仓库子模块指针）
 
 1. `session_new`：切到上下文干净的新会话。她这一轮的回复落在新会话里，对方接下来的话也在新会话里；控制台收到 `session.switch` 事件把打开的会话页切过去，飞书切换「当前会话」；可写一段交接作为新会话的第一条记录。
 2. `session_compact`：压缩当前会话上下文。她自己写摘要（她眼前有全部上下文），不写则由快速模型代写；摘要作为「摘要」通道的环境输入存进会话，之后进入上下文的只有摘要与新内容，记录仍完整保留，对话仍在当前会话继续。
@@ -16,9 +16,9 @@
 
 ## 荣耀9 上的步骤
 
-同前一篇实验：`adb install -r` 升级 App（0.3.1），`scripts/deploy/windler-release.sh` 发布运行基座，`/health` 正常。正式发布的 APK 来自 GitHub Release v0.3.1（v0.3.0 的发布工作流在「构建运行基座」一步失败，日志被打包脚本静音了，本版改为失败时打印测试输出）。
+同前一篇实验：`adb install -r` 升级 App（0.3.1），`scripts/deploy/quetzal-release.sh` 发布运行基座，`/health` 正常。正式发布的 APK 来自 GitHub Release v0.3.1（v0.3.0 的发布工作流在「构建运行基座」一步失败，日志被打包脚本静音了，本版改为失败时打印测试输出）。
 
 ## 回滚
 
-- 运行基座：`scripts/deploy/windler-release.sh rollback`。
+- 运行基座：`scripts/deploy/quetzal-release.sh rollback`。
 - 这些工具的权限可在控制台「能力授权」把「会话与子 agent」设为「禁止」，她就不能再用。

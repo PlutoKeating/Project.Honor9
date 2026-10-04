@@ -21,20 +21,20 @@
 
 项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)，架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
-Amani 的运行基座本身在独立仓库 [Project.Windler](https://github.com/PlutoKeating/Project.Windler)（子模块 `Project.Windler/`），其中已包含任意安卓手机通用的 Termux 身体适配器与带安装向导的 App；本仓库负责这台手机特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署与运维、设备档案与实验记录。
+Amani 的运行基座本身在独立仓库 [Project.Quetzal](https://github.com/PlutoKeating/Project.Quetzal)（子模块 `Project.Quetzal/`），其中已包含任意安卓手机通用的 Termux 身体适配器与带安装向导的 App；本仓库负责这台手机特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署与运维、设备档案与实验记录。
 
 ## 目录结构
 
 ```
 .
-├── Project.Windler/          # 子模块：Windler 运行基座、Termux 身体适配器与 App（独立仓库，设备无关）
+├── Project.Quetzal/          # 子模块：Quetzal 运行基座、Termux 身体适配器与 App（独立仓库，设备无关）
 ├── configs/
 │   ├── packages/           # 应用包清单（保留 / 禁用 / 卸载）；荣耀9 在根下，P9 在 eva-al10/
 │   └── services/           # 系统服务裁剪清单
 ├── AGENTS.md               # Agent 开发规范与项目规则（新会话必读）
 ├── CLAUDE.md -> AGENTS.md  # 软链接
 ├── docs/
-│   ├── ARCHITECTURE.md     # 架构：Windler 运行基座在荣耀9 上的适配与部署
+│   ├── ARCHITECTURE.md     # 架构：Quetzal 运行基座在荣耀9 上的适配与部署
 │   ├── API.md              # 适配器与部署脚本接口
 │   ├── vision.md           # 项目愿景与阶段规划
 │   ├── device/             # 硬件、系统、分区等设备资料
@@ -45,7 +45,7 @@ Amani 的运行基座本身在独立仓库 [Project.Windler](https://github.com/
 │   ├── adb/                # ADB 连接与常用操作
 │   ├── debloat/            # 精简：禁用或卸载应用、关闭服务
 │   ├── backup/             # 备份与还原
-│   └── deploy/             # 系统准备、Termux 安装与引导、Windler 发布与回滚
+│   └── deploy/             # 系统准备、Termux 安装与引导、Quetzal 发布与回滚
 ├── tools/                  # 独立的辅助工具
 ├── private/                # 本机敏感信息：序列号、ID、MAC、IP（不入库）
 ├── backups/                # 本地备份与 APK（不入库）
@@ -66,7 +66,7 @@ adb devices -l
 git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 ```
 
-**使用者路径**（任何安卓手机，不需要电脑）：装 Termux 三件套与 Windler App，在 App 的安装向导里完成一切，见 [Project.Windler 快速开始](Project.Windler/docs/QUICK_START.md)。
+**使用者路径**（任何安卓手机，不需要电脑）：装 Termux 三件套与 Quetzal App，在 App 的安装向导里完成一切，见 [Project.Quetzal 快速开始](Project.Quetzal/docs/QUICK_START.md)。
 
 **开发者路径**（本仓库，从主机经 ADB/ssh 部署与运维，手机需亮屏解锁，全程约 10 分钟）：
 
@@ -74,10 +74,10 @@ git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 scripts/deploy/termux-install.sh        # 安装 Termux 三件套
 scripts/deploy/prepare-system.sh apply  # 卸载 PowerGenie、放行后台（荣耀9 特有，普通用户走 App 向导里的保活引导）
 scripts/deploy/termux-bootstrap.sh      # 首次引导（sshd、nodejs、runit、开机脚本）
-scripts/deploy/windler-release.sh         # 构建并发布 Windler 运行基座与 Termux 适配器（失败自动回滚）
+scripts/deploy/quetzal-release.sh         # 构建并发布 Quetzal 运行基座与 Termux 适配器（失败自动回滚）
 ```
 
-两条路径的设备端目录与服务约定一致（见 [架构](docs/ARCHITECTURE.md)），可以互换：App 的「升级 / 重装」能接管 ssh 发布的部署，反之亦然。之后的配置（模型、飞书、灵魂同步）都在手机上的 Windler App 里完成。
+两条路径的设备端目录与服务约定一致（见 [架构](docs/ARCHITECTURE.md)），可以互换：App 的「升级 / 重装」能接管 ssh 发布的部署，反之亦然。之后的配置（模型、飞书、灵魂同步）都在手机上的 Quetzal App 里完成。
 
 ## 路线图
 
@@ -86,7 +86,7 @@ scripts/deploy/windler-release.sh         # 构建并发布 Windler 运行基座
 - [x] 梳理预装应用与系统服务，制定裁剪清单（荣耀9 251 → 108，P9 196 → 85）
 - [x] 分批精简，并验证系统稳定性（重启后需运行 `scripts/debloat/post-boot.sh`）
 - [x] 搭建智能体运行环境（Termux + runit，见 [架构](docs/ARCHITECTURE.md)）
-- [x] 部署 Windler 运行基座与控制台 App（[Project.Windler](https://github.com/PlutoKeating/Project.Windler)）
+- [x] 部署 Quetzal 运行基座与控制台 App（[Project.Quetzal](https://github.com/PlutoKeating/Project.Quetzal)）
 - [ ] 配置模型、接入飞书与灵魂仓库，让她开始自主生活
 - [ ] 持续迭代「Amani（神谷薰）」：操作屏幕与应用（hands）等
 
