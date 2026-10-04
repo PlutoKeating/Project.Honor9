@@ -40,7 +40,7 @@ flowchart TB
 | 守护 | 崩溃立即恢复 | runit 监视 `$PREFIX/var/service/quetzal`，进程退出即重新执行 `run`；日志交给 `svlogd` 自动轮转（`$PREFIX/var/log/sv/quetzal/`）。连续崩溃的熔断在运行基座内部。 |
 | 身体适配器 | 设备的感官与动作 | 子模块的 Termux 适配器：调用 Termux:API 命令行工具，传感器按名字探测（这台机上是 BH1745 光线与 BMI160 加速度），机型只作描述。 |
 | 运维通道 | 部署、诊断（开发者） | `adb shell` 读不到 Termux 私有目录，因此通过 USB 端口转发 ssh 进入 Termux。端口不对局域网开放。 |
-| Quetzal App | 安装、观察、管理、听 | 与运行基座同在手机上，连本机网关；内置运行基座与 Termux 适配器，安装向导通过 Termux RUN_COMMAND 执行安装脚本（`Project.Quetzal/console/assets/install/install.sh`），离线时同一接口重新执行开机脚本点火。0.3.0 起 App 还是这具身体的**耳朵**：Android 9 只允许前台服务常驻拿麦克风，Termux:API 的录音只能定长录文件，所以听觉放在 App 的原生前台服务里（系统降噪 + WebRTC VAD 断句），每句话 POST 到基座 `/hear`，由基座用 Azure 识别后以「环境声音」交给 Amani 判断是否回应。 |
+| Quetzal App | 安装、观察、管理、听 | 与运行基座同在手机上，连本机网关；内置运行基座与 Termux 适配器，安装向导通过 Termux RUN_COMMAND 执行安装脚本（`Project.Quetzal/console/assets/install/install.sh`），离线时同一接口重新执行开机脚本点火。App 自身也能一键更新（问 GitHub 最新正式版、下载 APK、核对 SHA256、交给系统安装器；新 App 打开后直接进向导把运行基座升上去），不再需要从主机 adb 装 APK。0.3.0 起 App 还是这具身体的**耳朵**：Android 9 只允许前台服务常驻拿麦克风，Termux:API 的录音只能定长录文件，所以听觉放在 App 的原生前台服务里（系统降噪 + WebRTC VAD 断句），每句话 POST 到基座 `/hear`，由基座用 Azure 识别后以「环境声音」交给 Amani 判断是否回应。 |
 
 ## 2. 设备上的目录
 
