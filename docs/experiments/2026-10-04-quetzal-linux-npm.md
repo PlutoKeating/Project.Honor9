@@ -26,7 +26,7 @@
 - 仅 Linux。macOS 需要 `processes.ts` 的非 Linux 分支与 launchd；Windows 原生需要抽 shell 与进程树终止层，目前建议 WSL2。
 - Linux 适配器的 `hands` 只做了 `screenshot`，点击与输入没做；`speak` 与 Termux 一致不提供。
 - 没有发布到 npm：需要所有者在 npmjs.com 创建 `NPM_TOKEN`（Automation 令牌）写入 Quetzal 仓库 Secrets，然后打 `v0.4.0` 标签触发工作流。Quetzal 的四个提交尚未推送。
-- 控制台 App 仍是纯 Android；连接 Linux 身体靠 `--lan` 或端口转发。
+- 控制台 App 仍是纯 Android；连接 Linux 身体靠 `--lan` 或端口转发。（同日晚些已解决：0.5.0 起控制台有网页版，由网关托管，见 `2026-10-04-quetzal-web-console.md`。）
 
 ## 回滚
 

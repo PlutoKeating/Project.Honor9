@@ -28,7 +28,7 @@
 | 3 · 调优 | 常驻保活、省电策略、网络、温控、充电上限 | `configs/services/`，实验记录 |
 | 4 · 环境 | Termux + runit 运行环境，打通主机和设备的通信 | `scripts/deploy/` ✅ |
 | 5 · 培育 | 部署 Amani，接入感知和执行能力，形成记忆 | 子模块 `Project.Quetzal/`（含 Termux 身体适配器） |
-| 6 · 开放 | 让任何人在一台旧安卓手机上装好 Quetzal、接入或创造自己的 agent | Quetzal App 的安装向导（子模块），本仓库退为荣耀9 特有的精简与运维 |
+| 6 · 开放 | 让任何人在一台旧安卓手机或一台 Linux 电脑上装好 Quetzal、接入或创造自己的 agent | Quetzal App 的安装向导与 `npx @plutokeating/quetzal` + 网页控制台（子模块），本仓库退为荣耀9 特有的精简与运维 |
 
 ## 关于 Amani（神谷薰）
 
