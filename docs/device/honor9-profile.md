@@ -124,7 +124,7 @@
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
 | Quetzal App | `xyz.quetzal.console` 1.0.3（2026-10-06：从 GitHub Release `v1.0.3` 下载，先用发版公钥验证 `SHA256SUMS.sig`、再核对 APK 的 sha256，经 `adb install -r` 覆盖升级；证书 CN=Quetzal；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；「控制 → 账户」可管理同步服务上的账户） |
-| 运行基座 | Quetzal 1.0.3（2026-10-06 正式版：手机锁屏，暂由已验签 APK 内置的 `main.cjs` / `termux.mjs` 经 ssh 按 App 向导的约定放进 `~/quetzal/releases/1.0.3/`，文件与发布版逐字节一致，`previous` 为 1.0.1；解锁后再经 App 的官方向导重装。命令沙箱为 proot（Termux 新装 `proot`），密钥目录、配置、版本目录与服务目录对她的命令隐藏；网状层协议 v2，与本机局域网直连，首次见到的公钥已钉住；同步服务 `https://sync.quetzal.plutokeating.beer`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`） |
+| 运行基座 | Quetzal 1.0.3（2026-10-06 正式版：手机锁屏时先由已验签 APK 内置的文件经 ssh 放置；解锁后在 App「服务 → 升级 / 重装」用 App 内置的同一版本走了官方向导（一次性口令、逐个文件核对 sha256），`previous` 为 1.0.1。命令沙箱为 proot（Termux 新装 `proot`），密钥目录、配置、版本目录与服务目录对她的命令隐藏；网状层协议 v2，与本机局域网直连，首次见到的公钥已钉住；同步服务 `https://sync.quetzal.plutokeating.beer`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`） |
 | 灵魂仓库 | 规范 v9（2026-10-05：误推事故清理后重新克隆，每个克隆在 `.git/quetzal-soul-roots.json` 记下两个灵魂根提交；顶层允许她自己的目录如 `ops/`） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
