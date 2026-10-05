@@ -123,8 +123,8 @@
 | Termux / Termux:Boot / Termux:API | v0.118.3 / v0.8.1 / v0.53.0（GitHub 版） |
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
-| Quetzal App | `xyz.quetzal.console` 1.0.1（2026-10-06 用 GitHub Release `v1.0.1` 的 APK 经 `adb install -r` 覆盖升级，SHA256 与 Release 的 SHA256SUMS 一致；证书 CN=Quetzal；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Quetzal 在听」；「控制 → 账户」可管理同步服务上的账户） |
-| 运行基座 | Quetzal 1.0.1（2026-10-06 正式版：App 弹出「App 内置的运行基座是 1.0.1」后，经 App 的官方安装向导升级，`main.cjs` 与发布 APK 内置的逐字节一致，`previous` 为 1.0.0；网状层组件 node-datachannel 0.33.4 在 `~/quetzal/mesh-modules/0.33.4/`；同步服务地址为本项目运营的 `https://sync.quetzal.plutokeating.beer`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
+| Quetzal App | `xyz.quetzal.console` 1.0.3（2026-10-06：从 GitHub Release `v1.0.3` 下载，先用发版公钥验证 `SHA256SUMS.sig`、再核对 APK 的 sha256，经 `adb install -r` 覆盖升级；证书 CN=Quetzal；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；「控制 → 账户」可管理同步服务上的账户） |
+| 运行基座 | Quetzal 1.0.3（2026-10-06 正式版：手机锁屏，暂由已验签 APK 内置的 `main.cjs` / `termux.mjs` 经 ssh 按 App 向导的约定放进 `~/quetzal/releases/1.0.3/`，文件与发布版逐字节一致，`previous` 为 1.0.1；解锁后再经 App 的官方向导重装。命令沙箱为 proot（Termux 新装 `proot`），密钥目录、配置、版本目录与服务目录对她的命令隐藏；网状层协议 v2，与本机局域网直连，首次见到的公钥已钉住；同步服务 `https://sync.quetzal.plutokeating.beer`），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`） |
 | 灵魂仓库 | 规范 v9（2026-10-05：误推事故清理后重新克隆，每个克隆在 `.git/quetzal-soul-roots.json` 记下两个灵魂根提交；顶层允许她自己的目录如 `ops/`） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
