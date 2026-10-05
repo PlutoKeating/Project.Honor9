@@ -124,7 +124,7 @@
 | Node.js | v24.18.0（Termux `nodejs-lts`） |
 | 图片工具 | ffmpeg 8.1.3、ImageMagick 7.1.2（可选：运行基座缩小大图片时优先用它们，没有时 JPEG 用内置的 jpeg-js；2026-09-28 曾手动升 libc++ 修 ffmpeg，官方源现已是 libc++ 30） |
 | Quetzal App | `xyz.quetzal.console` 1.0.0（2026-10-05 用 GitHub Release `v1.0.0` 的 APK 经 `adb install -r` 覆盖升级，SHA256 与 Release 的 SHA256SUMS 一致；证书 CN=Quetzal；已授予 Termux RUN_COMMAND 与 RECORD_AUDIO 权限；听觉开着时常驻前台服务「Quetzal 在听」） |
-| 运行基座 | Quetzal 1.0.0（2026-10-05 正式版：取自 `v1.0.0` 发布 APK 内置的 `main.cjs` / `termux.mjs`，按 App 安装向导的约定放进 `~/quetzal/releases/1.0.0/`，`previous` 为 0.6.3；网状层组件 node-datachannel 0.33.4 在 `~/quetzal/mesh-modules/0.33.4/`，版本目录的 `node_modules` 是相对链接；尚未绑定同步服务），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
+| 运行基座 | Quetzal 1.0.0（2026-10-05 正式版：取自 `v1.0.0` 发布 APK 内置的 `main.cjs` / `termux.mjs`，按 App 安装向导的约定放进 `~/quetzal/releases/1.0.0/`；手机解锁后又在 App「服务 → 升级 / 重装」里用 App 内置的同一版本重新走了一遍官方向导，`previous` 为 0.6.3；网状层组件 node-datachannel 0.33.4 在 `~/quetzal/mesh-modules/0.33.4/`，版本目录的 `node_modules` 是相对链接；尚未绑定同步服务），家目录 `~/quetzal`，runit 服务 `quetzal`，身体适配器 `termux.mjs`（身体名 `honor9`，探测到光线 `light-bh1745` 与加速度 `accelerometer-bmi160`） |
 | 灵魂仓库 | 规范 v9（2026-10-05：误推事故清理后重新克隆，每个克隆在 `.git/quetzal-soul-roots.json` 记下两个灵魂根提交；顶层允许她自己的目录如 `ops/`） |
 | 飞书 | `com.ss.android.lark` 8.1.12（官方签名，已安装未打开） |
 | 已卸载的查杀组件 | `com.huawei.powergenie`（`pm uninstall -k --user 0`） |
