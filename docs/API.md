@@ -13,7 +13,7 @@ Quetzal 的网关 API 与适配器接口定义见子模块 [`Project.Quetzal/doc
 | `prepare-system.sh` | `apply` / `rollback` / `status` | 卸载 PowerGenie；为 Termux 系列与控制台加省电白名单、允许后台、待机分组 active（先备份到 `backups/`） |
 | `termux-install.sh` | — | 校验 sha256 后安装 Termux、Termux:Boot、Termux:API（GitHub 版，签名一致，APK 在 `backups/apks/`） |
 | `termux-bootstrap.sh` | — | 首次引导：推送引导文件到 `/sdcard/Download/quetzal-bootstrap/`，在 Termux 界面模拟输入执行 `termux/bootstrap.sh`，完成后通过 ssh 验证 |
-| `quetzal-release.sh` | 无参数 / `rollback` | 测试、构建并发布运行基座 `main.cjs` 与 Termux 适配器 `termux.mjs`，健康检查失败自动回滚 |
+| `quetzal-release.sh` | 无参数 / `rollback` | 测试、构建并发布运行基座 `main.cjs` 与 Termux 适配器 `termux.mjs`；按子模块锁定的 sha512 下载核对网状层组件 node-datachannel 到 `~/quetzal/mesh-modules/<版本>/`（失败不影响发布）；健康检查失败自动回滚 |
 | `lib.sh` | 被引用 | `dssh` / `dscp`：经 USB 端口转发连接 Termux 的 ssh |
 | `power-no-optimize.sh` | 无参数 / `restore` | 全局关闭省电优化（第一轮精简时引入） |
 

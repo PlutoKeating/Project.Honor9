@@ -74,7 +74,7 @@ git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 scripts/deploy/termux-install.sh        # 安装 Termux 三件套
 scripts/deploy/prepare-system.sh apply  # 卸载 PowerGenie、放行后台（荣耀9 特有，普通用户走 App 向导里的保活引导）
 scripts/deploy/termux-bootstrap.sh      # 首次引导（sshd、nodejs、runit、开机脚本）
-scripts/deploy/quetzal-release.sh         # 构建并发布 Quetzal 运行基座与 Termux 适配器（失败自动回滚）
+scripts/deploy/quetzal-release.sh         # 构建并发布 Quetzal 运行基座与 Termux 适配器，装上网状层组件（失败自动回滚）
 ```
 
 两条路径的设备端目录与服务约定一致（见 [架构](docs/ARCHITECTURE.md)），可以互换：App 的「升级 / 重装」能接管 ssh 发布的部署，反之亦然。之后的配置（模型、飞书、灵魂同步）都在手机上的 Quetzal App 里完成；在 Linux 电脑上用 `npx @plutokeating/quetzal` 装的运行基座，则在浏览器里的网页控制台（同一份界面的桌面版）完成，不需要手机。

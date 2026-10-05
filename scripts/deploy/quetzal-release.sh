@@ -28,6 +28,10 @@ dscp scripts/deploy/termux/quetzal-log-run localhost:../usr/var/service/quetzal/
 dscp scripts/deploy/termux/boot-quetzal localhost:.termux/boot/quetzal
 dssh "chmod 700 $SV/run $SV/log/run .termux/boot/quetzal && mkdir -p $R/$V"
 dscp Project.Quetzal/runtime/dist/main.cjs Project.Quetzal/runtime/dist/main.cjs.map Project.Quetzal/runtime/dist/termux.mjs "localhost:quetzal/releases/$V/"
+# 网状层的原生组件（node-datachannel，1.0 起）：按子模块里锁定的版本与 sha512 下载核对，装进 ~/quetzal/mesh-modules/<版本>/（各版本共用），
+# 版本目录的 node_modules 为相对链接。与 App 安装器的做法一致；失败不影响发布，只是暂时没有多具身体。
+dscp Project.Quetzal/runtime/tool/mesh-modules.lock.json Project.Quetzal/runtime/tool/install-mesh-modules.mjs "localhost:quetzal/releases/$V/"
+dssh "cd \$HOME/quetzal/releases/$V && NDC=\$(node -p \"require('./mesh-modules.lock.json').common['node-datachannel'].version\") && MM=\$HOME/quetzal/mesh-modules/\$NDC && mkdir -p \$MM && { [ -f \$MM/node_modules/node-datachannel/package.json ] || node install-mesh-modules.mjs mesh-modules.lock.json \$MM android-arm64 https://registry.npmmirror.com https://registry.npmjs.org; } && ln -sfn ../../mesh-modules/\$NDC/node_modules node_modules && echo '网状层组件就绪'" || echo "网状层组件没有装上（不影响发布）"
 
 cur=$(dssh 'readlink $HOME/quetzal/current || true')
 [ -n "$cur" ] && dssh "ln -sfn $cur \$HOME/quetzal/previous"
