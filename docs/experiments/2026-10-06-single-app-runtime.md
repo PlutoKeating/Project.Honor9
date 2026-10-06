@@ -46,6 +46,13 @@
 
 之后用主机下载同一个 APK（`/dl/latest/android.apk`，sha256 与 v1.1.2 的 `SHA256SUMS` 核对通过），先卸载 1.0.4 开发版，再 `adb install`。其余全在手机屏幕上操作：打开 App →「在这台手机上安装 Quetzal」→「安装 1.1.2」→ 显示「完成：运行基座 1.1.2 已启动，控制台已自动连接」→ 身体权限「允许」（相机、麦克风、定位、通知）→ 忽略电池优化「允许」→ 应用启动管理里把 Quetzal 改为手动管理、三项全开 →「开始」进主界面（在线、尚未配置模型）。「控制 → 关于」显示控制台 1.1.2、运行基座 1.1.2、身体 `stf-al10`；「检查更新」显示「已是最新」。
 
+## 升级后缺网状层组件（1.1.6 → 1.1.7 修复）
+
+- 现象：从旧版本升级上来的 App，「多具身体」页显示「这具身体缺少网状层的原生组件 node-datachannel（Cannot find package …）」；全新安装正常。荣耀9 上从 1.1.2 升到 1.1.6 复现，另一台手机也出现。
+- 原因：每个运行基座版本目录（`files/runtime/<版本>/`）里有一个 `node_modules` 符号链接，指向运行环境里的 `files/usr/lib/quetzal/node_modules`。升级后删旧版本目录用的是 Kotlin 的 `deleteRecursively()`，它会顺着指向目录的链接钻进去，把网状层组件删光，只剩空的 `node_modules`。
+- 排查：CI 包与本地包的 `main.cjs`、运行环境 tar、原生可执行文件逐一比对完全相同；调试版里用 App 自带的 node 手动 `import("node-datachannel")` 正常；用旧代码在荣耀9 上模拟「留着上一个版本目录 + 升级」，复现出 `node_modules` 被删空。
+- 修复（Quetzal 1.1.7）：删目录改用不跟随符号链接的 `deleteTree`；运行环境发现 `node_modules` 被删空就重新解压。荣耀9 上实测：旧代码删空后装修复版，组件自动补回；修复版再模拟升级，组件不受影响；正式包 1.1.6 全新安装后 `adb install -r` 升级到 1.1.7，运行基座 1.1.7、多具身体页正常。
+
 ## 回滚
 
 - 卸载新 App：`adb shell pm uninstall xyz.quetzal.console`（会删掉 App 数据目录里的运行基座家目录；灵魂仓库不受影响）。

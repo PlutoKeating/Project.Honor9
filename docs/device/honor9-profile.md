@@ -123,7 +123,7 @@
 | 项目 | 值 |
 |---|---|
 | Termux / Termux:Boot / Termux:API | 已卸载（2026-10-06；此前为 v0.118.3 / v0.8.1 / v0.53.0 GitHub 版） |
-| Quetzal App | `xyz.quetzal.console` 1.1.2 正式版（发布签名，`adb install`；本机精简掉了 `com.huawei.coauthservice`，系统安装器装不了浏览器下载的 APK）：内置运行环境（Node.js v24.18.0、git 2.56、openssh 10.5、proot，termux-packages 以 App 的前缀重编）；已授予相机、麦克风、定位权限 |
+| Quetzal App | `xyz.quetzal.console` 1.1.7 正式版（发布签名，`adb install`；本机精简掉了 `com.huawei.coauthservice`，系统安装器装不了浏览器下载的 APK）：内置运行环境（Node.js v24.18.0、git 2.56、openssh 10.5、proot，termux-packages 以 App 的前缀重编）；已授予相机、麦克风、定位权限 |
 | 运行基座 | 1.0.4，App 的前台服务 `RuntimeService` 运行；家目录为 App 数据目录下的 `files/home/quetzal`，日志 `files/home/quetzal/data/runtime.log`；身体适配器 `android`（身体接口由 App 提供），身体名 `stf-al10`；命令沙箱 proot；同步服务缺省官方；尚未接入灵魂仓库与模型 |
 | 自启动 | EMUI「应用启动管理」：Quetzal 手动管理，允许自启动、关联启动、后台活动（2026-10-06 放行后实测开机与升级后均自动拉起运行基座） |
 | 灵魂仓库 | 规范 v9（2026-10-05：误推事故清理后重新克隆，每个克隆在 `.git/quetzal-soul-roots.json` 记下两个灵魂根提交；顶层允许她自己的目录如 `ops/`） |
