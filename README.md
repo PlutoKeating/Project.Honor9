@@ -21,13 +21,13 @@
 
 项目的完整意图与阶段规划见 [docs/vision.md](docs/vision.md)，协作规则见 [AGENTS.md](AGENTS.md)，架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
-Amani 的运行基座本身在独立仓库 [Project.Quetzal](https://github.com/PlutoKeating/Project.Quetzal)（子模块 `Project.Quetzal/`），其中已包含任意安卓手机通用的 Termux 身体适配器与带安装向导的 App；本仓库负责这台手机特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署与运维、设备档案与实验记录。
+Amani 的运行基座本身在独立仓库 [Project.Quetzal](https://github.com/PlutoKeating/Project.Quetzal)（子模块 `Project.Quetzal/`），其中已包含任意安卓手机通用的 Quetzal App（内置运行基座与运行环境，只装这一个 App）和安卓、Linux、旧的 Termux 三种身体适配器；本仓库负责这台手机特有的部分：系统精简与保活、开发者从主机经 ADB/ssh 的部署与运维、设备档案与实验记录。
 
 ## 目录结构
 
 ```
 .
-├── Project.Quetzal/          # 子模块：Quetzal 运行基座、Termux 身体适配器与 App（独立仓库，设备无关）
+├── Project.Quetzal/          # 子模块：Quetzal 运行基座、身体适配器与 App（独立仓库，设备无关）
 ├── configs/
 │   ├── packages/           # 应用包清单（保留 / 禁用 / 卸载）；荣耀9 在根下，P9 在 eva-al10/
 │   └── services/           # 系统服务裁剪清单
@@ -66,9 +66,9 @@ adb devices -l
 git clone --recursive git@github.com:PlutoKeating/Project.Honor9.git
 ```
 
-**使用者路径**（任何安卓手机，不需要电脑）：装 Termux 三件套与 Quetzal App，在 App 的安装向导里完成一切，见 [Project.Quetzal 快速开始](Project.Quetzal/docs/QUICK_START.md)。
+**使用者路径**（任何安卓手机，不需要电脑）：只装 Quetzal App，打开后跟着向导完成一切，见 [Project.Quetzal 快速开始](Project.Quetzal/docs/QUICK_START.md)。荣耀9 从 2026-10-06 起就按这条路径做全新安装的测试机。
 
-**开发者路径**（本仓库，从主机经 ADB/ssh 部署与运维，手机需亮屏解锁，全程约 10 分钟）：
+**开发者路径**（本仓库，旧的 Termux 安装方式，从主机经 ADB/ssh 部署与运维，手机需亮屏解锁）：
 
 ```bash
 scripts/deploy/termux-install.sh        # 安装 Termux 三件套
@@ -87,7 +87,10 @@ scripts/deploy/quetzal-release.sh         # 构建并发布 Quetzal 运行基座
 - [x] 分批精简，并验证系统稳定性（重启后需运行 `scripts/debloat/post-boot.sh`）
 - [x] 搭建智能体运行环境（Termux + runit，见 [架构](docs/ARCHITECTURE.md)）
 - [x] 部署 Quetzal 运行基座与控制台 App（[Project.Quetzal](https://github.com/PlutoKeating/Project.Quetzal)）
-- [ ] 配置模型、接入飞书与灵魂仓库，让她开始自主生活
+- [x] 配置模型、接入飞书与灵魂仓库，让她开始自主生活（2026-10-04，Termux 安装）
+- [x] 改为只装一个 App 的安装方式，荣耀9 重置为全新安装的测试机（2026-10-06）
+- [ ] 在全新安装的荣耀9 上重新接入 Amani 的灵魂仓库与模型
+- [ ] Android 10 以上的真机测试
 - [ ] 持续迭代「Amani（神谷薰）」：操作屏幕与应用（hands）等
 
 ## 约定
