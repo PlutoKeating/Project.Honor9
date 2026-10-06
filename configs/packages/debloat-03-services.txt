@@ -25,6 +25,7 @@ com.huawei.rcsserviceapplication
 com.huawei.cryptosms.service
 com.huawei.fido.uafclient
 com.huawei.hwasm
+# 身份核验服务：去掉后系统安装器装不了浏览器下载的 APK（纯净模式页的「继续安装」要用它），App 改用 adb install（2026-10-06）
 com.huawei.coauthservice
 com.huawei.imedia.sws
 com.qeexo.smartshot
